@@ -1,0 +1,19 @@
+<div class="layout-wrapper" [ngClass]="containerClass">
+    <app-topbar></app-topbar>
+    <div class="layout-sidebar">
+        <app-sidebar></app-sidebar>
+    </div>
+    <div class="layout-main-container">
+        <p>here</p>
+        <h3 *ngFor="let des in destination">
+            <p>* {{des.Name}}</p>
+        </h3>
+        <div class="layout-main">
+            <router-outlet>
+            </router-outlet>
+        </div>
+        <!-- <app-footer></app-footer> -->
+    </div>
+    <app-config></app-config>
+    <div class="layout-mask"></div>
+</div>

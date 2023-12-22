@@ -1,0 +1,20 @@
+<div class="" header>
+  <app-portal-header></app-portal-header>
+</div>
+<input type="number" #guideId>
+<input type="text" #name>
+<input type="number" #idDes>
+<button (click)="addGuides(guideId.value, name.value, idDes.value)">Add guide</button>
+<h3 *ngFor="let guide of guides">
+  <p>*{{guide.GuideId}}</p>
+  <button (click)="deleteGuide(guide.GuideId)">Delete guide</button>
+</h3>
+<h1 *ngFor="let des of destination">
+<p>
+  *{{des.Name}}
+</p>
+</h1>
+<div class="main">
+  <router-outlet></router-outlet> 
+</div>
+<app-portal-footer></app-portal-footer>

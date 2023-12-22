@@ -1,0 +1,34 @@
+import { RouterModule } from '@angular/router';
+import { NgModule } from '@angular/core';
+import { NotfoundComponent } from './notfound/notfound.component';
+import { AppLayoutComponent as AdminLayoutComponent } from './admin/layout/app.layout.component';
+import { HomeComponent } from './portal/components/home/home.component';
+import { LayoutComponent } from './portal/layout/layout.component';
+
+@NgModule({
+    imports: [
+        RouterModule.forRoot([
+            {
+                path: '',
+                component: LayoutComponent,
+                children: [
+                    { path: '', component: HomeComponent, },
+                ],
+            },
+            {
+                path: 'admin', component: AdminLayoutComponent,
+                children: [
+                    { path: '', loadChildren: () => import('./admin/components/dashboard/dashboard.module').then(m => m.DashboardModule) },
+                    { path: 'user', loadChildren: () => import('./admin/components/user/user.module').then(m => m.UserModule) },
+                    { path: 'role', loadChildren: () => import('./admin/components/role/role.module').then(m => m.RoleModule) },
+                ]
+            },
+            { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
+            { path: 'notfound', component: NotfoundComponent },
+            { path: '**', redirectTo: '/notfound' },
+        ], { scrollPositionRestoration: 'enabled', anchorScrolling: 'enabled', onSameUrlNavigation: 'reload' })
+    ],
+    exports: [RouterModule]
+})
+export class AppRoutingModule {
+}

@@ -1,0 +1,126 @@
+/* header css */
+.header{
+	width: 90%;
+	margin: auto;
+}
+.nameBrand{
+	font-family: 'Nunito', sans-serif;
+}
+.bg-header{
+	background-image: url(https://www.wns.co.za/Portals/0/Images/HeaderBanner/desktop/1087/53/travel_HD.jpg);
+	height: auto;
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+.navHeader{
+	width: 90%;
+}
+.titleText{
+	position: relative;
+}
+.titleText::after{
+	content: '';
+	position: absolute;
+	width: 2rem;
+	height: 4px;
+	background-color: #86B817;
+	top: 8px;
+	left: 110px;
+}
+.titleText::before{
+	content: '';
+	position: absolute;
+	width: 3rem;
+	height: 2px;
+	background-color: #86B817;
+	top: 17px;
+	left: 110px;
+}
+.about-bg{
+	background-image: url(https://i.pinimg.com/originals/7b/76/36/7b7636efa740e11e156671327dc4ed77.png);
+	background-position: center;
+	background-size: cover;
+}
+/* Service */
+/* Destination */
+.des-imgOrigin{
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+	transition: all 1s;
+}
+.des-img:hover{
+	transform: scale(1.2);
+	transition: all 1s;
+}
+.des-img1{
+	background-image: url(https://hoteliermaldives.com/wp-content/uploads/2022/05/hassan-nizam-q0AR0jBiLtU-unsplash-scaled.jpg);
+}
+.des-img3{
+	background-image: url(https://halongviolet.com/media/articles/src/a106-hanoi-halong-cruise-packages-3.jpg?t=1589174829);
+
+}
+
+.des-img2{
+	background-image: url(https://images.pexels.com/photos/2412718/pexels-photo-2412718.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500);
+
+}
+
+.des-img4{
+	background-image: url(https://images.pexels.com/photos/2674066/pexels-photo-2674066.jpeg?auto=compress&cs=tinysrgb&h=627&fit=crop&w=1200);
+
+}
+
+/* Package */
+.img-package1{
+	background-image: url(https://storage.googleapis.com/kreatewebsites/site102/img/package-1.jpg);
+
+}
+.img-package2{
+	background-image: url(https://images.pexels.com/photos/1153026/pexels-photo-1153026.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260);
+}
+.img-package3{
+	background-image: url(https://th.bing.com/th/id/OIP.fuDUWlPbvVYd33sNJE9PiAAAAA?rs=1&pid=ImgDetMain);
+}
+/* Booking */
+.booking{
+	background: linear-gradient(rgba(15, 23, 43, .7), rgba(15,23,43, .7)), url(https://www.global-gallivanting.com/wp-content/uploads/2020/01/yoga-handstand-on-beach-in-thailand-1024x569.jpg);
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	height: auto;
+}
+/* Guide */
+.img-guide1{
+	background-image: url(https://html.design/demo/melon/images/team_img1.jpg);
+}
+.img-guide2{
+	background-image: url(https://www.andrewhargrodermd.com/wp-content/themes/andrewhargrodermd/img/team-2.jpg);
+}
+.img-guide3{
+	background-image: url(https://th.bing.com/th/id/OIP.WyQcOX_qZ0BosTRTzbqYQwHaHa?w=768&h=768&rs=1&pid=ImgDetMain);
+}
+.img-guide4{
+	background-image: url(https://th.bing.com/th/id/R.9ab2ebbeb96d3449eab83bd47d6a845a?rik=GaggcuwaaUjAvQ&riu=http%3a%2f%2fthrivebooking.com%2fwebsite%2fimages%2fclients%2fChrista-Smith.png&ehk=BvW2eLJS8qT7CjNkqOaPYwQiCkhIrfVwq4lYHtYNRzc%3d&risl=&pid=ImgRaw&r=0);
+}
+.guide-item:hover .img-guide{
+	transform: scale(1.2);
+	transition: all 1s;
+}
+/* testimonial */
+.slider-main{
+	width: 125%;
+}
+.item{
+	background-image: url(https://html.design/demo/melon/images/team_img1.jpg);
+}
+.clients-img{
+	transform: translate(-50%, -50%);
+}
+.prev{
+}
+.next{
+
+}
