@@ -4,8 +4,13 @@
         <app-sidebar></app-sidebar>
     </div>
     <div class="layout-main-container">
+        <p>here</p>
+        <h3 *ngFor="let des in destination">
+            <p>* {{des.Name}}</p>
+        </h3>
         <div class="layout-main">
-            <router-outlet></router-outlet>
+            <router-outlet>
+            </router-outlet>
         </div>
         <!-- <app-footer></app-footer> -->
     </div>
