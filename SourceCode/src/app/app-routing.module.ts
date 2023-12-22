@@ -20,7 +20,8 @@ import { LayoutComponent } from './portal/layout/layout.component';
                 children: [
                     { path: '', loadChildren: () => import('./admin/components/dashboard/dashboard.module').then(m => m.DashboardModule) },
                     { path: 'user', loadChildren: () => import('./admin/components/user/user.module').then(m => m.UserModule) },
-                    { path: 'role', loadChildren: () => import('./admin/components/role/role.module').then(m => m.RoleModule) },
+                    { path: 'destination', loadChildren: () => import('./admin/components/destination/destination.module').then(m => m.DestinationModule) },
+
                 ]
             },
             { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },

@@ -11,7 +11,6 @@ import { filter, Subscription } from 'rxjs';
 import { LayoutService } from './service/app.layout.service';
 import { AppSidebarComponent } from './app.sidebar.component';
 import { AppTopBarComponent } from './app.topbar.component';
-import { DestinationService } from 'src/app/_shared/service/destination.service';
 @Component({
     selector: 'app-layout',
     templateUrl: './app.layout.component.html',
@@ -30,8 +29,7 @@ export class AppLayoutComponent implements OnInit {
     constructor(
         public layoutService: LayoutService,
         public renderer: Renderer2,
-        public router: Router,
-        private service: DestinationService
+        public router: Router
     ) {
         this.overlayMenuOpenSubscription =
             this.layoutService.overlayOpen$.subscribe(() => {
@@ -136,8 +134,8 @@ export class AppLayoutComponent implements OnInit {
             document.body.className = document.body.className.replace(
                 new RegExp(
                     '(^|\\b)' +
-                        'blocked-scroll'.split(' ').join('|') +
-                        '(\\b|$)',
+                    'blocked-scroll'.split(' ').join('|') +
+                    '(\\b|$)',
                     'gi'
                 ),
                 ' '
@@ -173,34 +171,5 @@ export class AppLayoutComponent implements OnInit {
             this.menuOutsideClickListener();
         }
     }
-    destination: any = [];
-    refreshDes() {
-        this.service.getDes().subscribe((res) => {
-            this.destination = res;
-        });
-    }
-    ngOnInit() {
-        this.refreshDes();
-    }
-    addDes(
-        desId: number,
-        name: string,
-        description: string,
-        img: string,
-        rating: number,
-        discount: number
-    ) {
-        this.service
-            .addDes(desId, name, description, img, rating, discount)
-            .then((res) => {
-                console.log(res);
-                this.refreshDes();
-            });
-    }
-    deleteDes(idDes: number) {
-        this.service.deleteDes(idDes).then((res) => {
-            console.log(res);
-            this.refreshDes();
-        });
-    }
+    ngOnInit() { }
 }

@@ -26,13 +26,17 @@ export class AppMenuComponent implements OnInit {
                         label: 'Tài khoản',
                         icon: 'pi pi-fw pi-users',
                         routerLink: ['/admin/user'],
-                    },
-                    {
-                        label: 'Phân quyền',
-                        icon: 'pi pi-fw pi-user-edit',
-                        routerLink: ['/admin/role'],
-                    },]
+                    }]
             },
+            {
+                label: 'Du lịch',
+                items: [
+                    {
+                        label: 'Điểm du lịch',
+                        icon: 'pi pi-fw pi-user-edit',
+                        routerLink: ['/admin/destination']
+                    }]
+            }
         ];
     }
 }

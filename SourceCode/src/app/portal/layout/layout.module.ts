@@ -7,8 +7,6 @@ import { TouristComponent } from './tourist/tourist.component';
 import { RouterOutlet } from '@angular/router';
 import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
-import { SharedService } from 'src/app/portal/layout/shared.service';
-import { DestinationService } from 'src/app/_shared/service/destination.service';
 const firebaseConfig = {
     apiKey: 'AIzaSyBG2_fG-mgVuQPppdXZ2J4GVH7XxXV9JmQ',
     authDomain: 'travel-data-960b4.firebaseapp.com',
@@ -31,8 +29,8 @@ const components = [
         provideFirebaseApp(() => initializeApp(firebaseConfig)),
         provideFirestore(() => getFirestore()),
     ],
-    providers: [SharedService, DestinationService],
+    providers: [],
     declarations: [...components],
     exports: [...components],
 })
-export class portalLayoutModule {}
+export class portalLayoutModule { }
