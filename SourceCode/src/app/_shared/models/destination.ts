@@ -2,17 +2,19 @@ export class Destination {
     constructor(
         name: string,
         desctiption: string,
-        image: string[],
+        images: string[],
         rating: number,
-        discount: number) {
+        discount: number,
+        id: string = ''
+    ) {
         this.Name = name;
         this.Description = desctiption;
-        this.Images = image;
+        this.Images = images;
         this.Rating = rating;
         this.Discount = discount;
-
+        if (id) this.Id = id;
     }
-    Id: string;
+    Id?: string;
     Name: string;
     Description: string;
     Images: string[];

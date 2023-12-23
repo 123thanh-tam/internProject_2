@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Destination } from 'src/app/_shared/model';
-import { DestinationService } from 'src/app/_shared/service/destination.service';
+import { ConfirmationService } from 'primeng/api';
+import { MessageConstants } from 'src/app/_shared/consts';
+import { Destination } from 'src/app/_shared/models';
+import { NotificationService } from 'src/app/_shared/services';
+import { DestinationService } from 'src/app/_shared/services/destination.service';
 
 @Component({
   selector: 'app-destination',
@@ -10,7 +13,12 @@ import { DestinationService } from 'src/app/_shared/service/destination.service'
 export class DestinationComponent implements OnInit {
 
   items: Destination[] = [];
-  constructor(private destinationService: DestinationService) { }
+  loading: boolean = false;
+  constructor(
+    private destinationService: DestinationService,
+    private notificationService: NotificationService,
+    private confirmationService: ConfirmationService
+  ) { }
 
   ngOnInit() {
     this.getData();
@@ -30,17 +38,44 @@ export class DestinationComponent implements OnInit {
         console.log(res);
       });
   }
-  addDestination(data: Destination) {
+  add(data: Destination) {
     this.destinationService.add(data)
       .then(res => {
         console.log(res);
       });
   }
   getData() {
+    this.loading = true;
     this.destinationService.getAll()
       .subscribe(res => {
-        this.items = res as Destination[];
-        console.log(this.items);
+        this.items = res;
+        this.loading = false;
+        // console.log(this.items);
       });
   }
+
+  delete(id) {
+    if (!id) {
+      this.notificationService.showError(MessageConstants.NOT_CHOOSE_ANY_RECORD);
+      return;
+    }
+    this.confirmationService.confirm({
+      message: MessageConstants.CONFIRM_DELETE_MSG,
+      accept: () => {
+        this.loading = true;
+        this.destinationService
+          .delete(id)
+          .then(res => {
+            this.notificationService.showSuccess(MessageConstants.DELETED_OK_MSG);
+            this.getData();
+            this.loading = false;
+          })
+          .catch(err => {
+            this.loading = false;
+            console.error('Delete Destomatopm Errpr:', err);
+          });
+      },
+    });
+  }
+
 }

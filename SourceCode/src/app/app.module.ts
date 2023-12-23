@@ -6,10 +6,17 @@ import { AdminLayoutModule } from './admin/layout/app.layout.module';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { portalLayoutModule } from './portal/layout/layout.module';
 import { AngularFireModule } from '@angular/fire/compat';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ToastModule } from 'primeng/toast';
+
 import { environment } from 'src/environments/environment';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { NotificationService } from './_shared/services';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { GlobalHttpInterceptorService as HttpErrorInterceptorService } from './_shared/interceptors';
 // import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app';
 // import { getFirestore, provideFirestore } from '@angular/fire/firestore';
-// import { SharedService } from './shared.service';
+
 
 // const firebaseConfig = {
 //     apiKey: 'AIzaSyBG2_fG-mgVuQPppdXZ2J4GVH7XxXV9JmQ',
@@ -29,11 +36,20 @@ import { environment } from 'src/environments/environment';
         AngularFireModule.initializeApp(environment.firebase),
         // provideFirebaseApp(() => initializeApp(firebaseConfig)),
         // provideFirestore(() => getFirestore()),
+        ConfirmDialogModule,
+        ToastModule
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
-        // SharedService,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: HttpErrorInterceptorService,
+            multi: true,
+        },
+        MessageService,
+        NotificationService,
+        ConfirmationService
     ],
     bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
