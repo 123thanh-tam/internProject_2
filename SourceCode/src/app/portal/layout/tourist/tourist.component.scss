@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 .titleText::after{
 	content: '';
 	position: absolute;

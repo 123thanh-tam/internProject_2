@@ -1,4 +1,4 @@
-export class Destination {
+export class DestinationDto {
     constructor(
         name: string,
         desctiption: string,

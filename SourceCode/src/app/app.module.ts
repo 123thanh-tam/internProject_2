@@ -11,7 +11,7 @@ import { ToastModule } from 'primeng/toast';
 
 import { environment } from 'src/environments/environment';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { NotificationService } from './_shared/services';
+import { NotificationService, UtilityService } from './_shared/services';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { GlobalHttpInterceptorService as HttpErrorInterceptorService } from './_shared/interceptors';
 // import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app';
@@ -48,7 +48,8 @@ import { GlobalHttpInterceptorService as HttpErrorInterceptorService } from './_
         },
         MessageService,
         NotificationService,
-        ConfirmationService
+        ConfirmationService,
+        UtilityService
     ],
     bootstrap: [AppComponent],
 })

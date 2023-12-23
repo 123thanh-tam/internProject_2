@@ -1,0 +1,114 @@
+<form [formGroup]="form">
+    <p-panel #pnlDetail [collapsed]="false" [showHeader]="false">
+        <div class="formgrid grid card">
+            <!-- -----------------------------------Name----------------------------------------------- -->
+            <div class="field col-12 md:col-6">
+                <span class="p-float-label">
+                    <input
+                        autofocus
+                        formControlName="Name"
+                        type="text"
+                        pInputText
+                        [style]="{ width: '100%' }"
+                    />
+                    <label for="tenTaiLieu"
+                        >Tên <span class="required">*</span></label
+                    >
+                </span>
+                <app-validation-message
+                    [entityControl]="formControls['Name']"
+                    [validationMessages]="validationMessages.Name"
+                >
+                </app-validation-message>
+            </div>
+            <!-- ----------------------------Rating---------------------------=----------------------------- -->
+            <div class="field col-12 md:col-6">
+                <span class="p-float-label">
+                    <p-inputNumber
+                        formControlName="Rating"
+                        class="w-full"
+                        [style]="{ width: '100%' }"
+                        mode="decimal"
+                        [minFractionDigits]="2"
+                        [max]="5"
+                    ></p-inputNumber>
+                    <label>Đánh giá</label>
+                </span>
+            </div>
+            <!-- ----------------------------Discount---------------------------=----------------------------- -->
+            <div class="field col-12 md:col-6">
+                <span class="p-float-label">
+                    <p-inputNumber
+                        formControlName="Discount"
+                        class="w-full"
+                        [style]="{ width: '100%' }"
+                        mode="decimal"
+                        [minFractionDigits]="2"
+                        [max]="100"
+                    ></p-inputNumber>
+                    <label>Khuyến mãi (%)</label>
+                </span>
+            </div>
+
+            <!-- ----------------------------Description---------------------------=----------------------------- -->
+            <div class="field col-12 md:col-12">
+                <span class="p-float-label">
+                    <textarea
+                        formControlName="Description"
+                        [rows]="3"
+                        pInputTextarea
+                        class="w-full"
+                    ></textarea>
+                    <label for="diaChiThuongTru"
+                        >Mô tả <span class="required">*</span></label
+                    >
+                </span>
+                <app-validation-message
+                    [entityControl]="formControls['Description']"
+                    [validationMessages]="validationMessages.Description"
+                >
+                </app-validation-message>
+            </div>
+            <!-- ----------------------------file---------------------------=----------------------------- -->
+            <div *ngIf="mode != 'view'" class="field col-12 md:col-6">
+                <p-fileUpload
+                    name="file[]"
+                    [customUpload]="true"
+                    invalidFileSizeMessageSummary="{0}: Vượt quá dung lượng cho phép!"
+                    chooseLabel="Chọn tệp"
+                    uploadLabel="Tải lên"
+                    cancelLabel="Hủy"
+                    [auto]="true"
+                    [multiple]="true"
+                    (uploadHandler)="choseFile($event)"
+                    (onRemove)="removeFile($event)"
+                ></p-fileUpload>
+            </div>
+            <!-- ---------------------------------------------------------------------------------- -->
+        </div>
+        <!-- ---------------------------------------------------------------------------------- -->
+        <ng-template pTemplate="footer">
+            <div class="flex justify-content-end">
+                <button
+                    *ngIf="mode != 'view'"
+                    pButton
+                    pRipples
+                    type="button"
+                    (click)="saveChange()"
+                    label="Lưu"
+                    class="p-button-info mr-2"
+                    icon="pi pi-check"
+                ></button>
+                <button
+                    pButton
+                    pRipples
+                    type="button"
+                    (click)="closeModal()"
+                    label="Đóng"
+                    class="p-button-danger"
+                    icon="pi pi-times"
+                ></button>
+            </div>
+        </ng-template>
+    </p-panel>
+</form>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfirmationService } from 'primeng/api';
 import { MessageConstants } from 'src/app/_shared/consts';
-import { Destination } from 'src/app/_shared/models';
+import { DestinationDto } from 'src/app/_shared/models';
 import { NotificationService } from 'src/app/_shared/services';
 import { DestinationService } from 'src/app/_shared/services/destination.service';
 
@@ -12,8 +12,16 @@ import { DestinationService } from 'src/app/_shared/services/destination.service
 })
 export class DestinationComponent implements OnInit {
 
-  items: Destination[] = [];
+  items: DestinationDto[] = [];
   loading: boolean = false;
+
+  // Diablog
+  visibleDialog: boolean = false;
+  selectedItem: DestinationDto;
+  dialogMode: 'create' | 'update' | 'view' = 'view';
+  dialogHeader = '';
+
+
   constructor(
     private destinationService: DestinationService,
     private notificationService: NotificationService,
@@ -22,27 +30,6 @@ export class DestinationComponent implements OnInit {
 
   ngOnInit() {
     this.getData();
-    let des = new Destination(
-      'hai', 'haitc test',
-      ['image1.jpg', 'unage2.png'],
-      5,
-      0.3);
-    // this.addDestination(des);
-    this.get("0wMKKoKORZFQR1a4AjqT");
-    // this.get(8414);
-
-  }
-  get(id) {
-    this.destinationService.get(id)
-      .subscribe(res => {
-        console.log(res);
-      });
-  }
-  add(data: Destination) {
-    this.destinationService.add(data)
-      .then(res => {
-        console.log(res);
-      });
   }
   getData() {
     this.loading = true;
@@ -53,7 +40,47 @@ export class DestinationComponent implements OnInit {
         // console.log(this.items);
       });
   }
-
+  showDialog(mode: 'create' | 'update' | 'view', data: DestinationDto | undefined) {
+    debugger
+    switch (mode) {
+      case 'create':
+        this.dialogHeader = 'Thêm mới';
+        break;
+      case 'update':
+        this.dialogHeader = 'Cập nhật';
+        break;
+      default:
+        this.dialogHeader = 'Chi tiết';
+        break;
+    }
+    this.dialogMode = mode;
+    this.selectedItem = data;
+    this.visibleDialog = true;
+  }
+  submit(data: DestinationDto) {
+    this.loading = true;
+    if (this.dialogMode == 'create') {
+      this.destinationService.add(data)
+        .then(res => {
+          this.notificationService.showSuccess(MessageConstants.CREATED_OK_MSG);
+          this.closeDialog();
+          this.loading = false;
+        });
+    }
+    else if (this.dialogMode == 'update') {
+      this.destinationService.update(data.Id, data)
+        .then(res => {
+          this.notificationService.showSuccess(MessageConstants.UPDATED_OK_MSG);
+          this.closeDialog();
+          this.loading = false;
+        });
+    }
+  }
+  closeDialog() {
+    this.dialogHeader = '';
+    this.visibleDialog = false;
+    this.selectedItem = null;
+  }
   delete(id) {
     if (!id) {
       this.notificationService.showError(MessageConstants.NOT_CHOOSE_ANY_RECORD);
