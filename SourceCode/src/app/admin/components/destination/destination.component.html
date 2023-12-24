@@ -48,7 +48,6 @@
                         Tên <p-sortIcon field="Name"></p-sortIcon>
                     </th>
                     <th pSortableColumn="isPublic">Đánh giá</th>
-                    <th pSortableColumn="isDefault">Khuyến mại</th>
                     <th>Thao tác</th>
                 </tr>
             </ng-template>
@@ -63,15 +62,6 @@
                             [stars]="row.Rating"
                         ></p-rating>
                     </td>
-                    <td>
-                        <p-tag
-                            styleClass="mr-1"
-                            severity="success"
-                            [value]="row.Discount + ' %'"
-                        >
-                        </p-tag>
-                    </td>
-
                     <td>
                         <button
                             pButton
@@ -135,4 +125,3 @@
         (close)="closeDialog()"
     ></app-destination-image>
 </p-dialog>
-

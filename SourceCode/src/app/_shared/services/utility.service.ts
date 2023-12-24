@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Timestamp, timestamp } from 'rxjs';
 
 @Injectable()
 export class UtilityService {
@@ -216,5 +217,8 @@ export class UtilityService {
         this.markAllControlsAsDirty((control as FormArray).controls);
       }
     });
+  }
+  convertTimestampToDate(timeStampe: any): Date {
+    return new Date(+timeStampe.seconds * 1000); // because JS epoch times are milliseconds
   }
 }

@@ -1,118 +1,181 @@
-
 <form [formGroup]="form">
-	<p-panel #pnlDetail [collapsed]="false" [showHeader]="false">
-			<div class="formgrid grid card">
-					<!-- ----------------------------PackagesId---------------------------=----------------------------- -->
-					<div class="field col-12 md:col-6">
-							<span class="p-float-label">
-									<textarea
-											formControlName="PackagesId"
-											class="w-full"
-											[style]="{ width: '100%' }"
-											mode="string"
-									></textarea>
-									<app-validation-message [entityControl]="formControls['PackagesId']"
-									[validationMessages]="validationMessages.PacId">
-									</app-validation-message>
-									<label>Mã gói du lịch</label>
-							</span>
-					</div>
-					<!-- DestinationId -->
-					<div class="field col-12 md:col-6">
-						<span class="p-float-label">
-								<textarea
-										formControlName="DestinationId"
-										class="w-full"
-										[style]="{ width: '100%' }"
-										mode="string"
-								></textarea>
-								<app-validation-message
-								 	[entityControl]="formControls['DestinationId']"
-									[validationMessages]="validationMessages.PacId">
-								</app-validation-message>
-								<label>Mã địa điểm du lịch</label>
-						</span>
-				</div>
-					<!-- ----------------------------StartDate - EndDate---------------------------=----------------------------- -->
-					<div class="field col-12 md:col-6">
-							<span class="p-float-label">
-									<input type="datetime-local" placeholder="Date & time">
-									<label>Ngày khởi hành</label>
-							</span>
-					</div>
-					<div class="field col-12 md:col-6">
-						<span class="p-float-label">
-								<input type="datetime-local" placeholder="Date & time">
-								<label>Ngày kết thúc</label>
-						</span>
-				</div>
-
-					<!-- ----------------------------Number of people ---------------------------=----------------------------- -->
-					<div class="field col-12 md:col-6">
-						<span class="p-float-label">
-								<p-inputNumber
-										formControlName="People"
-										class="w-full"
-										[style]="{ width: '100%' }"
-										mode="Number"
-										[minFractionDigits]="1"
-										[max]="2"
-								></p-inputNumber>
-								<label>Số người</label>
-						</span>
-				</div>
-				<!-- Price -->
-				<div class="field col-12 md:col-6">
-					<span class="p-float-label">
-							<p-inputNumber
-									formControlName="Price"
-									class="w-full"
-									[style]="{ width: '100%' }"
-									mode="Number"
-							></p-inputNumber>
-							<label>Giá gói</label>
-					</span>
-			</div>
-					<!-- ----------------------------file---------------------------=----------------------------- -->
-					<div *ngIf="mode != 'view'" class="field col-12 md:col-6">
-							<p-fileUpload
-									name="file[]"
-									[customUpload]="true"
-									invalidFileSizeMessageSummary="{0}: Vượt quá dung lượng cho phép!"
-									chooseLabel="Chọn tệp"
-									uploadLabel="Tải lên"
-									cancelLabel="Hủy"
-									[auto]="true"
-									[multiple]="true"
-									(uploadHandler)="choseFile($event)"
-									(onRemove)="removeFile($event)"
-							></p-fileUpload>
-					</div>
-					<!-- ---------------------------------------------------------------------------------- -->
-			</div>
-			<!-- ---------------------------------------------------------------------------------- -->
-			<ng-template pTemplate="footer">
-					<div class="flex justify-content-end">
-							<button
-									*ngIf="mode != 'view'"
-									pButton
-									pRipples
-									type="button"
-									(click)="saveChange()"
-									label="Lưu"
-									class="p-button-info mr-2"
-									icon="pi pi-check"
-							></button>
-							<button
-									pButton
-									pRipples
-									type="button"
-									(click)="closeModal()"
-									label="Đóng"
-									class="p-button-danger"
-									icon="pi pi-times"
-							></button>
-					</div>
-			</ng-template>
-	</p-panel>
+    <p-panel #pnlDetail [collapsed]="false" [showHeader]="false">
+        <div class="formgrid grid card">
+            <!-- -----------------------------------Code----------------------------------------------- -->
+            <div class="field col-12 md:col-6">
+                <span class="p-float-label">
+                    <input
+                        autofocus
+                        formControlName="Code"
+                        type="text"
+                        pInputText
+                        [style]="{ width: '100%' }"
+                    />
+                    <label for="tenTaiLieu"
+                        >Mã <span class="required">*</span></label
+                    >
+                </span>
+                <app-validation-message
+                    [entityControl]="formControls['Name']"
+                    [validationMessages]="validationMessages.Name"
+                >
+                </app-validation-message>
+            </div>
+            <!-- -----------------------------------Name----------------------------------------------- -->
+            <div class="field col-12 md:col-6">
+                <span class="p-float-label">
+                    <input
+                        formControlName="Name"
+                        type="text"
+                        pInputText
+                        [style]="{ width: '100%' }"
+                    />
+                    <label for="tenTaiLieu"
+                        >Tên <span class="required">*</span></label
+                    >
+                </span>
+                <app-validation-message
+                    [entityControl]="formControls['Name']"
+                    [validationMessages]="validationMessages.Name"
+                >
+                </app-validation-message>
+            </div>
+            <!-- ----------------------------DestinationId---------------------------=----------------------------- -->
+            <div class="field col-12 md:col-6">
+                <span class="p-float-label">
+                    <p-dropdown
+                        formControlName="DestinationId"
+                        [options]="destinationOptions"
+                        optionLabel="text"
+                        optionValue="value"
+                        [showClear]="true"
+                        [autoDisplayFirst]="false"
+                        [filter]="true"
+                        filterBy="text"
+                        styleClass="w-full"
+                    ></p-dropdown>
+                    <label>Địa điểm <span class="required">*</span></label>
+                </span>
+                <app-validation-message
+                    [entityControl]="formControls['DestinationId']"
+                    [validationMessages]="validationMessages.DestinationId"
+                >
+                </app-validation-message>
+            </div>
+            <!-- ---------------------------------StartDate------------------------------------------------- -->
+            <div class="field col-12 md:col-6">
+                <span class="p-float-label">
+                    <p-calendar
+                        formControlName="StartDate"
+                        appendTo="body"
+                        dateFormat="dd/mm/yy"
+                        [showClear]="true"
+                        inputId="StartDate"
+                    ></p-calendar>
+                    <label
+                        >Ngày Ngày khởi hành
+                        <span class="required">*</span></label
+                    >
+                    <app-validation-message
+                        [entityControl]="formControls['StartDate']"
+                        [validationMessages]="validationMessages.StartDate"
+                    >
+                    </app-validation-message>
+                </span>
+            </div>
+            <!-- ---------------------------------DateCount------------------------------------------------- -->
+            <div class="field col-12 md:col-6">
+                <span class="p-float-label">
+                    <p-inputNumber
+                        formControlName="DateCount"
+                        class="w-full"
+                        [style]="{ width: '100%' }"
+                        inputId="integeronly"
+                        [min]="1"
+                    ></p-inputNumber>
+                    <label>Ngày Số ngày <span class="required">*</span></label>
+                    <app-validation-message
+                        [entityControl]="formControls['DateCount']"
+                        [validationMessages]="validationMessages.DateCount"
+                    >
+                    </app-validation-message>
+                </span>
+            </div>
+            <!-- ----------------------------Number of people ---------------------------=----------------------------- -->
+            <div class="field col-12 md:col-6">
+                <span class="p-float-label">
+                    <p-inputNumber
+                        formControlName="People"
+                        class="w-full"
+                        [style]="{ width: '100%' }"
+                        inputId="integeronly"
+                        [min]="1"
+                    ></p-inputNumber>
+                    <label>Số người <span class="required">*</span></label>
+                    <app-validation-message
+                        [entityControl]="formControls['People']"
+                        [validationMessages]="validationMessages.People"
+                    >
+                    </app-validation-message>
+                </span>
+            </div>
+            <!-- Price -->
+            <div class="field col-12 md:col-6">
+                <span class="p-float-label">
+                    <p-inputNumber
+                        formControlName="Price"
+                        class="w-full"
+                        [style]="{ width: '100%' }"
+                        mode="decimal"
+                        [minFractionDigits]="2"
+                    ></p-inputNumber>
+                    <label>Giá gói <span class="required">*</span></label>
+                    <app-validation-message
+                        [entityControl]="formControls['Price']"
+                        [validationMessages]="validationMessages.Price"
+                    >
+                    </app-validation-message>
+                </span>
+            </div>
+            <!-- ----------------------------Discount---------------------------=----------------------------- -->
+            <div class="field col-12 md:col-6">
+                <span class="p-float-label">
+                    <p-inputNumber
+                        formControlName="Discount"
+                        class="w-full"
+                        [style]="{ width: '100%' }"
+                        mode="decimal"
+                        [minFractionDigits]="2"
+                        [max]="100"
+                    ></p-inputNumber>
+                    <label>Khuyến mãi (%)</label>
+                </span>
+            </div>
+            <!-- ---------------------------------------------------------------------------------- -->
+        </div>
+        <!-- ---------------------------------------------------------------------------------- -->
+        <ng-template pTemplate="footer">
+            <div class="flex justify-content-end">
+                <button
+                    *ngIf="mode != 'view'"
+                    pButton
+                    pRipples
+                    type="button"
+                    (click)="saveChange()"
+                    label="Lưu"
+                    class="p-button-info mr-2"
+                    icon="pi pi-check"
+                ></button>
+                <button
+                    pButton
+                    pRipples
+                    type="button"
+                    (click)="closeModal()"
+                    label="Đóng"
+                    class="p-button-danger"
+                    icon="pi pi-times"
+                ></button>
+            </div>
+        </ng-template>
+    </p-panel>
 </form>

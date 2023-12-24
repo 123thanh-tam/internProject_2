@@ -1,25 +1,32 @@
 export class PackagesDto {
     constructor(
-        pacId: string,
+        code: string,
+        name: string,
         desId: string,
         sDate: Date,
-        eDate: Date,
+        dateCount: number,
         people: Number,
         price: Number,
-        img: string
+        discount: number,
+        id: string = ''
     ) {
-        (this.PackagesId = pacId), (this.DestinationId = desId);
+        if (id) { this.Id = id }
+        this.Code = code;
+        this.Name = name;
+        this.DestinationId = desId;
         this.StartDate = sDate;
-        this.EndDate = eDate;
+        this.DateCount = dateCount;
         this.People = people;
         this.Price = price;
-        this.Images = img;
+        this.Discount = discount;
     }
-    PackagesId: string;
+    Id: string;
+    Code: string;
+    Name: string;
     DestinationId: string;
     StartDate: Date;
-    EndDate: Date;
+    DateCount: number;
     People: Number;
     Price: Number;
-    Images: string;
+    Discount: number;
 }

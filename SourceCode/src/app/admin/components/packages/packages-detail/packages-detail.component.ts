@@ -1,13 +1,14 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessageConstants } from 'src/app/_shared/consts';
-import { UtilityService } from 'src/app/_shared/services';
+import { DestinationService, UtilityService } from 'src/app/_shared/services';
 import { PackagesDto as PackagesDto } from 'src/app/_shared/models/packages';
-// import { Calendar } from 'primeng/calendar';
+import { DropDownItem } from 'src/app/_shared/models';
+
 @Component({
     selector: 'app-packages-detail',
     templateUrl: './packages-detail.component.html',
-    styleUrls: ['./packages-detail.component.css'],
+    styleUrls: ['./packages-detail.component.scss'],
 })
 export class PackagesDetailComponent implements OnInit {
     @Input() mode: 'create' | 'update' | 'view' = 'view';
@@ -19,20 +20,30 @@ export class PackagesDetailComponent implements OnInit {
 
     form: FormGroup;
     title: string;
-    files: File[];
+    destinationOptions: DropDownItem[];
 
     validationMessages = {
-        PacId: [
-            {
-                type: 'required',
-                message: MessageConstants.REQUIRED_ERROR_MSG,
-            },
+        Name: [
+            { type: 'required', message: MessageConstants.REQUIRED_ERROR_MSG },
+            { type: 'maxlength', message: `Tên không quá 100 ký tự` },
+        ],
+        Code: [
+            { type: 'required', message: MessageConstants.REQUIRED_ERROR_MSG },
+        ],
+        DestinationId: [
+            { type: 'required', message: MessageConstants.REQUIRED_ERROR_MSG },
+        ],
+        People: [
+            { type: 'required', message: MessageConstants.REQUIRED_ERROR_MSG },
         ],
         Price: [
-            {
-                type: 'required',
-                message: MessageConstants.REQUIRED_ERROR_MSG,
-            },
+            { type: 'required', message: MessageConstants.REQUIRED_ERROR_MSG },
+        ],
+        StartDate: [
+            { type: 'required', message: MessageConstants.REQUIRED_ERROR_MSG },
+        ],
+        DateCount: [
+            { type: 'required', message: MessageConstants.REQUIRED_ERROR_MSG },
         ],
     };
 
@@ -40,21 +51,36 @@ export class PackagesDetailComponent implements OnInit {
         return this.form.controls;
     }
 
-    constructor(private fb: FormBuilder, private utilService: UtilityService) {}
+    constructor(
+        private fb: FormBuilder,
+        private utilService: UtilityService,
+        private destinationService: DestinationService
+    ) { }
 
     ngOnInit() {
         this.buildForm();
+        this.getDestinations();
     }
-
+    getDestinations() {
+        this.destinationService.getAll()
+            .subscribe(res => {
+                this.destinationOptions = res.map(x => new DropDownItem(x.Name, x.Id));
+            });
+    }
     buildForm() {
         this.form = this.fb.group({
-            PackagesId: [null, [Validators.required]],
+            Id: [null],
+            Code: [null, [Validators.required]],
+            Name: [
+                null,
+                [Validators.required, Validators.maxLength(100)],
+            ],
             DestinationId: [null, Validators.required],
-            StartDate: [null],
-            EndDate: [null],
+            StartDate: [null, Validators.required],
+            DateCount: [null, Validators.required],
             People: [null],
             Price: [null, Validators.required],
-            Images: [null],
+            Discount: [null],
         });
         if (this.item) this.form.patchValue(this.item);
         if (this.mode == 'view') this.form.disable();
@@ -63,17 +89,7 @@ export class PackagesDetailComponent implements OnInit {
         this.utilService.markAllControlsAsDirty([this.form]);
         if (this.form.invalid) return;
         let dto = this.form.value as PackagesDto;
-        // if (this.files && this.files.length > 0) {
-        //   dto.contentLength = this.files.map(x => x.name);
-        // }
         this.submitForm.emit(dto);
-    }
-
-    choseFile(event) {
-        this.files = event.files[0];
-    }
-    removeFile(event) {
-        this.files = null;
     }
     closeModal() {
         this.close.emit();

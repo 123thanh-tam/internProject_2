@@ -21,6 +21,7 @@ import { LayoutComponent } from './portal/layout/layout.component';
                     { path: '', loadChildren: () => import('./admin/components/dashboard/dashboard.module').then(m => m.DashboardModule) },
                     { path: 'user', loadChildren: () => import('./admin/components/user/user.module').then(m => m.UserModule) },
                     { path: 'destination', loadChildren: () => import('./admin/components/destination/destination.module').then(m => m.DestinationModule) },
+                    { path: 'packages', loadChildren: () => import('./admin/components/packages/packages.module').then(m => m.PackagesModule) },
 
                 ]
             },

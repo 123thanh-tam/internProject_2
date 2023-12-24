@@ -11,57 +11,62 @@ import {
 import { map, tap } from 'rxjs';
 import { PackagesDto } from '../models/packages';
 import { dc } from '@fullcalendar/core/internal-common';
+import { UtilityService } from './utility.service';
 @Injectable({
     providedIn: 'root',
 })
 export class PackagesService {
-    constructor(private fs: Firestore) {}
+    constructor(private fs: Firestore, private utilityService: UtilityService) { }
     get(id: string) {
-        let docRef = doc(this.fs, 'packages/' + id);
+        let docRef = doc(this.fs, 'Packages/' + id);
         return docData(docRef, { idField: 'Id' }).pipe(
             tap(
                 (x: DocumentData) =>
                     new PackagesDto(
-                        x['PackagesId'],
+                        x['Code'],
+                        x['Name'],
                         x['DestinationId'],
-                        x['StartDate'],
-                        x['EndDate'],
+                        this.utilityService.convertTimestampToDate(x['StartDate']),
+                        x['DateCount'],
                         x['People'],
                         x['Price'],
-                        x['Images']
+                        x['Discount'],
+                        x['Id']
                     )
             )
         );
     }
     getAll() {
-        let pacCollection = collection(this.fs, 'packages');
+        let pacCollection = collection(this.fs, 'Packages');
         return collectionData(pacCollection, { idField: 'Id' }).pipe(
             map((data: DocumentData[]) => {
                 return data.map(
                     (x) =>
                         new PackagesDto(
-                            x['PackagesId'],
+                            x['Code'],
+                            x['Name'],
                             x['DestinationId'],
-                            x['StartDate'],
-                            x['EndDate'],
+                            this.utilityService.convertTimestampToDate(x['StartDate']),
+                            x['DateCount'],
                             x['People'],
                             x['Price'],
-                            x['Images']
+                            x['Discount'],
+                            x['Id']
                         )
                 );
             })
         );
     }
-    add(destination: PackagesDto) {
-        let pacCollection = collection(this.fs, 'packages');
-        return addDoc(pacCollection, { ...destination });
+    add(dât: PackagesDto) {
+        let pacCollection = collection(this.fs, 'Packages');
+        return addDoc(pacCollection, { ...dât });
     }
-    update(id: string, destination: PackagesDto) {
-        let docRef = doc(this.fs, 'packages/' + id);
-        return updateDoc(docRef, { ...destination });
+    update(id: string, dât: PackagesDto) {
+        let docRef = doc(this.fs, 'Packages/' + id);
+        return updateDoc(docRef, { ...dât });
     }
     delete(id: string) {
-        let docRef = doc(this.fs, 'packages/' + id);
+        let docRef = doc(this.fs, 'Packages/' + id);
         return deleteDoc(docRef);
     }
 }

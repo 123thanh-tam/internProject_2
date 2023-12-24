@@ -63,7 +63,6 @@ export class DestinationDetailComponent implements OnInit {
         [Validators.required, Validators.maxLength(100)],
       ],
       Rating: [null],
-      Discount: [null],
       Images: [null],
     });
     if (this.item)

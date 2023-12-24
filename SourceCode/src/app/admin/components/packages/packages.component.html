@@ -1,121 +1,114 @@
 <div class="animated fadeIn card">
-	<p-panel #pnl>
-			<p-table
-					#dt
-					[value]="items"
-					dataKey="id"
-					[rows]="10"
-					[showCurrentPageReport]="true"
-					[rowsPerPageOptions]="[10, 25, 50]"
-					[loading]="loading"
-					[paginator]="true"
-					currentPageReportTemplate="{first}-{last}/{totalRecords}"
-					[globalFilterFields]="['Name']"
-					dataKey="id"
-			>
-					<ng-template pTemplate="caption">
-							<div class="flex">
-									<button
-											type="button"
-											pButton
-											pRipple
-											label="Thêm"
-											icon="pi pi-plus"
-											class="p-button-info mr-1"
-											pTooltip="Thêm"
-											tooltipPosition="top"
-											(click)="showDialog('create')"
-									></button>
-									<span class="p-input-icon-right ml-auto">
-											<i class="pi pi-search"></i>
-											<input
-													pInputText
-													type="text"
-													(input)="
-															dt1.filterGlobal(
-																	$event.target.value,
-																	'contains'
-															)
-													"
-													placeholder="Tìm kiếm"
-											/>
-									</span>
-							</div>
-					</ng-template>
-					<ng-template pTemplate="header">
-							<tr>
-									<!-- <th pSortableColumn="Name" style="width: 20%">
-											Tên <p-sortIcon field="Name"></p-sortIcon>
-									</th> -->
-									<th pSortableColumn="isPublic">Mã gói du lịch</th>
-									<th pSortableColumn="isPublic">Mã địa điểm du lịch</th>
-									<th pSortableColumn="isPublic">Ngày khởi hành</th>
-									<th pSortableColumn="isPublic">Ngày kết thúc</th>
-									<th pSortableColumn="isPublic">Số người</th>
-									<th pSortableColumn="isPublic">Giá gói du lịch</th>
-									<th pSortableColumn="isDefault"></th>
-									<th>Thao tác</th>
-							</tr>
-					</ng-template>
-					<ng-template pTemplate="body" let-row let-rowIndex="rowIndex">
-							<tr>
-									<td>{{ row.PackagesId }}</td>
-									<td>{{ row.DestinationId }}</td>
-									<td>{{row.StartDate}}</td>
-									<td>{{row.EndDate}}</td>
-									<td>
-											<p-rating
-													[ngModel]="row.Rating"
-													[readonly]="true"
-													[cancel]="false"
-													[stars]="row.People"
-											></p-rating>
-									</td>
-									<td>
-										<p-rating
-												[ngModel]="row.Rating"
-												[readonly]="true"
-												[cancel]="false"
-												[stars]="row.Price"
-										></p-rating>
-								</td>
-									<td>
-											<button
-													pButton
-													pRipple
-													icon="pi pi-pencil"
-													class="p-button-rounded p-button-success mr-2"
-													(click)="showDialog('update',row)"
-											></button>
-											<button
-													pButton
-													pRipple
-													[rounded]="true"
-													icon="pi pi-trash"
-													class="p-button-rounded p-button-danger"
-													(click)="delete(row.PackagesId)"
-											></button>
-									</td>
-							</tr>
-					</ng-template>
-			</p-table>
-	</p-panel>
+    <p-panel #pnl>
+        <p-table
+            #dt
+            [value]="items"
+            dataKey="id"
+            [rows]="10"
+            [showCurrentPageReport]="true"
+            [rowsPerPageOptions]="[10, 25, 50]"
+            [loading]="loading"
+            [paginator]="true"
+            currentPageReportTemplate="{first}-{last}/{totalRecords}"
+            [globalFilterFields]="['Name']"
+            dataKey="id"
+        >
+            <ng-template pTemplate="caption">
+                <div class="flex">
+                    <button
+                        type="button"
+                        pButton
+                        pRipple
+                        label="Thêm"
+                        icon="pi pi-plus"
+                        class="p-button-info mr-1"
+                        pTooltip="Thêm"
+                        tooltipPosition="top"
+                        (click)="showDialog('create')"
+                    ></button>
+                    <span class="p-input-icon-right ml-auto">
+                        <i class="pi pi-search"></i>
+                        <input
+                            pInputText
+                            type="text"
+                            (input)="
+                                dt1.filterGlobal(
+                                    $event.target.value,
+                                    'contains'
+                                )
+                            "
+                            placeholder="Tìm kiếm"
+                        />
+                    </span>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="isPublic">Mã</th>
+                    <th pSortableColumn="isPublic">Têm</th>
+                    <th pSortableColumn="isPublic">Địa điểm</th>
+                    <th pSortableColumn="isPublic">Ngày khởi hành</th>
+                    <th pSortableColumn="isPublic">Số ngày</th>
+                    <th pSortableColumn="isPublic">Số người</th>
+                    <th pSortableColumn="isPublic">Giá</th>
+                    <th pSortableColumn="isDefault">Khuyến mại</th>
+                    <th>Thao tác</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-row let-rowIndex="rowIndex">
+                <tr>
+                    <td>{{ row.Code }}</td>
+                    <td>{{ row.Name }}</td>
+                    <td>{{ findDestination(row.DestinationId)?.Name }}</td>
+                    <td>{{ row.StartDate | date : "dd/MM/yyyy" }}</td>
+                    <td>{{ row.DateCount }}</td>
+                    <td>{{ row.People }}</td>
+                    <td>{{ row.Price }}</td>
+                    <td>
+                        <p-tag
+                            styleClass="mr-1"
+                            severity="danger"
+                            [value]="'-' + row.Discount + ' %'"
+                        >
+                        </p-tag>
+                    </td>
+                    <td>
+                        <button
+                            pButton
+                            pRipple
+                            icon="pi pi-pencil"
+                            class="p-button-rounded p-button-success mr-2"
+                            (click)="showDialog('update', row)"
+                        ></button>
+                        <button
+                            pButton
+                            pRipple
+                            [rounded]="true"
+                            icon="pi pi-trash"
+                            class="p-button-rounded p-button-danger"
+                            (click)="delete(row.Id)"
+                        ></button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </p-panel>
 </div>
 
 <p-dialog
-	*ngIf="visibleDialog"
-	[header]="dialogHeader"
-	[(visible)]="visibleDialog"
-	[modal]="true"
-	[style]="{ width: '70vw' }"
-	[draggable]="false"
-	[resizable]="false"
+    *ngIf="visibleDialog"
+    [header]="dialogHeader"
+    [(visible)]="visibleDialog"
+    [modal]="true"
+    [style]="{ width: '70vw' }"
+    [draggable]="false"
+    [resizable]="false"
 >
-	<app-destination-detail
-	[mode]="dialogMode"
-			[id]="selectedItem ? selectedItem?.Id : null"
-			[item]="selectedItem"
-			(submitForm)="submit($event)"
-			(close)="closeDialog()"
-	></app-destination-detail>
+    <app-packages-detail
+        [mode]="dialogMode"
+        [id]="selectedItem ? selectedItem?.Id : null"
+        [item]="selectedItem"
+        (submitForm)="submit($event)"
+        (close)="closeDialog()"
+    ></app-packages-detail>
 </p-dialog>

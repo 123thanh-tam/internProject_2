@@ -4,14 +4,12 @@ export class DestinationDto {
         description: string,
         images: string[],
         rating: number,
-        discount: number,
         id: string = ''
     ) {
         this.Name = name;
         this.Description = description;
         this.Images = images;
         this.Rating = rating;
-        this.Discount = discount;
         if (id) this.Id = id;
     }
     Id?: string;
@@ -19,5 +17,4 @@ export class DestinationDto {
     Description: string;
     Images: string[];
     Rating: number;
-    Discount: number;
 }

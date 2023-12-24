@@ -16,6 +16,8 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { DialogModule } from 'primeng/dialog';
 import { PackagesRoutes } from './packages.routing';
 import { PackagesDetailComponent } from './packages-detail/packages-detail.component';
+import { CalendarModule } from 'primeng/calendar';
+import { DropdownModule } from 'primeng/dropdown';
 @NgModule({
     imports: [
         PackagesRoutes,
@@ -34,6 +36,8 @@ import { PackagesDetailComponent } from './packages-detail/packages-detail.compo
         InputTextareaModule,
         InputNumberModule,
         DialogModule,
+        CalendarModule,
+        DropdownModule
     ],
     declarations: [PackagesComponent, PackagesDetailComponent],
 })

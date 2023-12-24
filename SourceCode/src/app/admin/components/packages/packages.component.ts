@@ -1,17 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfirmationService } from 'primeng/api';
 import { MessageConstants } from 'src/app/_shared/consts';
+import { DestinationDto } from 'src/app/_shared/models';
 import { PackagesDto } from 'src/app/_shared/models/packages';
-import { NotificationService } from 'src/app/_shared/services';
+import { DestinationService, NotificationService } from 'src/app/_shared/services';
 import { PackagesService } from 'src/app/_shared/services/packages.service';
 @Component({
     selector: 'app-packages',
     templateUrl: './packages.component.html',
-    styleUrls: ['./packages.component.css'],
+    styleUrls: ['./packages.component.scss'],
 })
 export class PackagesComponent implements OnInit {
     items: PackagesDto[] = [];
     loading: boolean = false;
+    destinations: DestinationDto[] = [];
 
     visibleDialog: boolean = false;
     selectedItem: PackagesDto;
@@ -21,23 +23,36 @@ export class PackagesComponent implements OnInit {
     constructor(
         private packagesService: PackagesService,
         private notificationService: NotificationService,
-        private confirmationService: ConfirmationService
-    ) {}
+        private confirmationService: ConfirmationService,
+        private destinationService: DestinationService,
+    ) { }
 
-    ngOnInit() {}
+    ngOnInit() {
+        // Quên câu này s mà ra data :)
+        this.getData();
+        this.getDestinations();
+    }
+
     getData() {
         this.loading = true;
         this.packagesService.getAll().subscribe((res) => {
             this.items = res;
             this.loading = false;
-            // console.log(this.items);
         });
+    }
+
+    getDestinations() {
+        this.loading = true;
+        this.destinationService.getAll()
+            .subscribe(res => {
+                this.destinations = res;
+                this.loading = false;
+            });
     }
     showDialog(
         mode: 'create' | 'update' | 'view',
         data: PackagesDto | undefined
     ) {
-        debugger;
         switch (mode) {
             case 'create':
                 this.dialogHeader = 'Thêm mới';
@@ -64,7 +79,7 @@ export class PackagesComponent implements OnInit {
                 this.loading = false;
             });
         } else if (this.dialogMode == 'update') {
-            this.packagesService.update(data.PackagesId, data).then((res) => {
+            this.packagesService.update(data.Id, data).then((res) => {
                 this.notificationService.showSuccess(
                     MessageConstants.UPDATED_OK_MSG
                 );
@@ -104,5 +119,8 @@ export class PackagesComponent implements OnInit {
                     });
             },
         });
+    }
+    findDestination(id: string) {
+        return this.destinations.find(x => x.Id == id);
     }
 }

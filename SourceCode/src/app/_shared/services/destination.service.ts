@@ -24,7 +24,6 @@ export class DestinationService {
                         x['Description'],
                         x['Images'],
                         x['Rating'],
-                        x['Discount'],
                         id
                     )
             )
@@ -41,7 +40,6 @@ export class DestinationService {
                             x['Description'],
                             x['Images'],
                             x['Rating'],
-                            x['Discount'],
                             x['Id']
                         )
                 );

@@ -39,7 +39,7 @@ export class AppMenuComponent implements OnInit {
                     {
                         label: 'Packages',
                         icon: 'pi pi-map-marker',
-                        routerLink: ['/admin/packages'],
+                        routerLink: ['/admin/packages'], // Cần cấu hình trong app-routing
                     },
                 ],
             },
