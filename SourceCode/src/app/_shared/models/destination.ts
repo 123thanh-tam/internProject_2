@@ -1,14 +1,14 @@
 export class DestinationDto {
     constructor(
         name: string,
-        desctiption: string,
+        description: string,
         images: string[],
         rating: number,
         discount: number,
         id: string = ''
     ) {
         this.Name = name;
-        this.Description = desctiption;
+        this.Description = description;
         this.Images = images;
         this.Rating = rating;
         this.Discount = discount;

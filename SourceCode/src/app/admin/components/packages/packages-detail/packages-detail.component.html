@@ -1,0 +1,118 @@
+
+<form [formGroup]="form">
+	<p-panel #pnlDetail [collapsed]="false" [showHeader]="false">
+			<div class="formgrid grid card">
+					<!-- ----------------------------PackagesId---------------------------=----------------------------- -->
+					<div class="field col-12 md:col-6">
+							<span class="p-float-label">
+									<textarea
+											formControlName="PackagesId"
+											class="w-full"
+											[style]="{ width: '100%' }"
+											mode="string"
+									></textarea>
+									<app-validation-message [entityControl]="formControls['PackagesId']"
+									[validationMessages]="validationMessages.PacId">
+									</app-validation-message>
+									<label>Mã gói du lịch</label>
+							</span>
+					</div>
+					<!-- DestinationId -->
+					<div class="field col-12 md:col-6">
+						<span class="p-float-label">
+								<textarea
+										formControlName="DestinationId"
+										class="w-full"
+										[style]="{ width: '100%' }"
+										mode="string"
+								></textarea>
+								<app-validation-message
+								 	[entityControl]="formControls['DestinationId']"
+									[validationMessages]="validationMessages.PacId">
+								</app-validation-message>
+								<label>Mã địa điểm du lịch</label>
+						</span>
+				</div>
+					<!-- ----------------------------StartDate - EndDate---------------------------=----------------------------- -->
+					<div class="field col-12 md:col-6">
+							<span class="p-float-label">
+									<input type="datetime-local" placeholder="Date & time">
+									<label>Ngày khởi hành</label>
+							</span>
+					</div>
+					<div class="field col-12 md:col-6">
+						<span class="p-float-label">
+								<input type="datetime-local" placeholder="Date & time">
+								<label>Ngày kết thúc</label>
+						</span>
+				</div>
+
+					<!-- ----------------------------Number of people ---------------------------=----------------------------- -->
+					<div class="field col-12 md:col-6">
+						<span class="p-float-label">
+								<p-inputNumber
+										formControlName="People"
+										class="w-full"
+										[style]="{ width: '100%' }"
+										mode="Number"
+										[minFractionDigits]="1"
+										[max]="2"
+								></p-inputNumber>
+								<label>Số người</label>
+						</span>
+				</div>
+				<!-- Price -->
+				<div class="field col-12 md:col-6">
+					<span class="p-float-label">
+							<p-inputNumber
+									formControlName="Price"
+									class="w-full"
+									[style]="{ width: '100%' }"
+									mode="Number"
+							></p-inputNumber>
+							<label>Giá gói</label>
+					</span>
+			</div>
+					<!-- ----------------------------file---------------------------=----------------------------- -->
+					<div *ngIf="mode != 'view'" class="field col-12 md:col-6">
+							<p-fileUpload
+									name="file[]"
+									[customUpload]="true"
+									invalidFileSizeMessageSummary="{0}: Vượt quá dung lượng cho phép!"
+									chooseLabel="Chọn tệp"
+									uploadLabel="Tải lên"
+									cancelLabel="Hủy"
+									[auto]="true"
+									[multiple]="true"
+									(uploadHandler)="choseFile($event)"
+									(onRemove)="removeFile($event)"
+							></p-fileUpload>
+					</div>
+					<!-- ---------------------------------------------------------------------------------- -->
+			</div>
+			<!-- ---------------------------------------------------------------------------------- -->
+			<ng-template pTemplate="footer">
+					<div class="flex justify-content-end">
+							<button
+									*ngIf="mode != 'view'"
+									pButton
+									pRipples
+									type="button"
+									(click)="saveChange()"
+									label="Lưu"
+									class="p-button-info mr-2"
+									icon="pi pi-check"
+							></button>
+							<button
+									pButton
+									pRipples
+									type="button"
+									(click)="closeModal()"
+									label="Đóng"
+									class="p-button-danger"
+									icon="pi pi-times"
+							></button>
+					</div>
+			</ng-template>
+	</p-panel>
+</form>

@@ -4,41 +4,45 @@ import { LayoutService } from './service/app.layout.service';
 
 @Component({
     selector: 'app-menu',
-    templateUrl: './app.menu.component.html'
+    templateUrl: './app.menu.component.html',
 })
 export class AppMenuComponent implements OnInit {
-
     model: any[] = [];
 
-
-    constructor(public layoutService: LayoutService) { }
+    constructor(public layoutService: LayoutService) {}
 
     ngOnInit() {
         this.model = [
             {
-                label: 'Hệ thống',
+                label: 'System',
                 items: [
                     {
-                        label: 'Trang quản trị',
+                        label: 'Management Page',
                         icon: 'pi pi-fw pi-home',
-                        routerLink: ['/admin']
+                        routerLink: ['/admin'],
                     },
                     {
-                        label: 'Tài khoản',
+                        label: 'Account',
                         icon: 'pi pi-fw pi-users',
                         routerLink: ['/admin/user'],
-                    }
-                ]
+                    },
+                ],
             },
             {
-                label: 'Du lịch',
+                label: 'Travel',
                 items: [
                     {
-                        label: 'Điểm du lịch',
+                        label: 'Destination',
                         icon: 'pi pi-fw pi-user-edit',
-                        routerLink: ['/admin/destination']
-                    }]
-            }
+                        routerLink: ['/admin/destination'],
+                    },
+                    {
+                        label: 'Packages',
+                        icon: 'pi pi-map-marker',
+                        routerLink: ['/admin/packages'],
+                    },
+                ],
+            },
         ];
     }
 }

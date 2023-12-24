@@ -18,7 +18,7 @@ import { AppConfigModule } from './config/config.module';
 import { AppSidebarComponent } from './app.sidebar.component';
 import { AppLayoutComponent } from './app.layout.component';
 import { DestinationService } from 'src/app/_shared/services/destination.service';
-
+import { PackagesService } from 'src/app/_shared/services';
 @NgModule({
     declarations: [
         AppMenuitemComponent,
@@ -40,9 +40,9 @@ import { DestinationService } from 'src/app/_shared/services/destination.service
         InputSwitchModule,
         RippleModule,
         RouterModule,
-        AppConfigModule
+        AppConfigModule,
     ],
-    providers: [DestinationService],
+    providers: [DestinationService, PackagesService],
     exports: [AppLayoutComponent],
 })
 export class AdminLayoutModule {}
