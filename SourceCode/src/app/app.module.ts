@@ -5,27 +5,19 @@ import { AppRoutingModule } from './app-routing.module';
 import { AdminLayoutModule } from './admin/layout/app.layout.module';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { portalLayoutModule } from './portal/layout/layout.module';
-import { AngularFireModule } from '@angular/fire/compat';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
+//@angular/fire
+import { AngularFireModule } from '@angular/fire/compat';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { provideFirestore, getFirestore, connectFirestoreEmulator } from '@angular/fire/firestore';
+import { provideStorage, getStorage, connectStorageEmulator } from '@angular/fire/storage';
 
 import { environment } from 'src/environments/environment';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { NotificationService, UtilityService } from './_shared/services';
+import { FileUploadService, NotificationService, UtilityService } from './_shared/services';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { GlobalHttpInterceptorService as HttpErrorInterceptorService } from './_shared/interceptors';
-// import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app';
-// import { getFirestore, provideFirestore } from '@angular/fire/firestore';
-
-
-// const firebaseConfig = {
-//     apiKey: 'AIzaSyBG2_fG-mgVuQPppdXZ2J4GVH7XxXV9JmQ',
-//     authDomain: 'travel-data-960b4.firebaseapp.com',
-//     projectId: 'travel-data-960b4',
-//     storageBucket: 'travel-data-960b4.appspot.com',
-//     messagingSenderId: '314394847999',
-//     appId: '1:314394847999:web:5a3ace675ae4587671baca',
-// };
+import { HttpErrorInterceptorService } from './_shared/interceptors';
 
 @NgModule({
     declarations: [AppComponent, NotfoundComponent],
@@ -33,11 +25,27 @@ import { GlobalHttpInterceptorService as HttpErrorInterceptorService } from './_
         AppRoutingModule,
         AdminLayoutModule,
         portalLayoutModule,
-        AngularFireModule.initializeApp(environment.firebase),
-        // provideFirebaseApp(() => initializeApp(firebaseConfig)),
-        // provideFirestore(() => getFirestore()),
         ConfirmDialogModule,
-        ToastModule
+        ToastModule,
+        AngularFireModule.initializeApp(environment.firebase),
+        // provideFirebaseApp(() => {
+        //     return initializeApp(environment.firebase);
+        // }),
+        // provideFirestore(() => {
+        //     const firestore = getFirestore();
+        //     if (location.hostname === 'localhost') {
+        //         connectFirestoreEmulator(firestore, '127.0.0.1', 8080);
+        //     }
+        //     return firestore;
+        // }),
+        provideStorage(() => {
+            const storage = getStorage();
+            if (location.hostname === 'localhost') {
+                connectStorageEmulator(storage, '127.0.0.1', 5001);
+            }
+            return storage;
+        }),
+
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
@@ -49,7 +57,8 @@ import { GlobalHttpInterceptorService as HttpErrorInterceptorService } from './_
         MessageService,
         NotificationService,
         ConfirmationService,
-        UtilityService
+        UtilityService,
+        FileUploadService
     ],
     bootstrap: [AppComponent],
 })

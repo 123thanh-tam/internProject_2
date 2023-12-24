@@ -5,7 +5,7 @@ import { catchError } from 'rxjs/operators';
 import { NotificationService } from '../services';
 
 @Injectable()
-export class GlobalHttpInterceptorService implements HttpInterceptor {
+export class HttpErrorInterceptorService implements HttpInterceptor {
   constructor(
     private notificationService: NotificationService,
   ) {}

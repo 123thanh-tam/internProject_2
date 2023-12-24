@@ -16,6 +16,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DialogModule } from 'primeng/dialog';
+import { AngularFireStorageModule } from "@angular/fire/compat/storage";
+import { DetinationImageComponent } from './detination-image/detination-image.component';
 
 @NgModule({
   imports: [
@@ -34,8 +36,12 @@ import { DialogModule } from 'primeng/dialog';
     FileUploadModule,
     InputTextareaModule,
     InputNumberModule,
-    DialogModule
+    DialogModule,
   ],
-  declarations: [DestinationComponent, DestinationDetailComponent]
+  declarations: [
+    DestinationComponent,
+    DestinationDetailComponent,
+    DetinationImageComponent
+  ]
 })
 export class DestinationModule { }

@@ -20,7 +20,6 @@ export class DestinationDetailComponent implements OnInit {
 
   form: FormGroup;
   title: string;
-  files: File[];
 
   validationMessages = {
     Name: [
@@ -75,18 +74,9 @@ export class DestinationDetailComponent implements OnInit {
     this.utilService.markAllControlsAsDirty([this.form]);
     if (this.form.invalid) return;
     let dto = this.form.value as DestinationDto;
-    // if (this.files && this.files.length > 0) {
-    //   dto.contentLength = this.files.map(x => x.name);
-    // }
     this.submitForm.emit(dto);
   }
 
-  choseFile(event) {
-    this.files = event.files[0];
-  }
-  removeFile(event) {
-    this.files = null;
-  }
   closeModal() {
     this.close.emit();
   }

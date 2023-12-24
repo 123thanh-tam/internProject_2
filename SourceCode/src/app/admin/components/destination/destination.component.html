@@ -24,7 +24,7 @@
                         class="p-button-info mr-1"
                         pTooltip="Thêm"
                         tooltipPosition="top"
-                        (click)="showDialog('create')"
+                        (click)="showDialogDetail('create')"
                     ></button>
                     <span class="p-input-icon-right ml-auto">
                         <i class="pi pi-search"></i>
@@ -77,8 +77,15 @@
                             pButton
                             pRipple
                             icon="pi pi-pencil"
-                            class="p-button-rounded p-button-success mr-2"
-                            (click)="showDialog('update',row)"
+                            class="p-button-rounded mr-2"
+                            (click)="showDialogDetail('update', row)"
+                        ></button>
+                        <button
+                            pButton
+                            pRipple
+                            icon="pi pi-image"
+                            class="p-button-rounded mr-2"
+                            (click)="showDialogImage(row)"
                         ></button>
                         <button
                             pButton
@@ -96,19 +103,36 @@
 </div>
 
 <p-dialog
-    *ngIf="visibleDialog"
+    *ngIf="visibleDialogDetail"
     [header]="dialogHeader"
-    [(visible)]="visibleDialog"
+    [(visible)]="visibleDialogDetail"
     [modal]="true"
     [style]="{ width: '70vw' }"
     [draggable]="false"
     [resizable]="false"
 >
     <app-destination-detail
-    [mode]="dialogMode"
+        [mode]="dialogMode"
         [id]="selectedItem ? selectedItem?.Id : null"
         [item]="selectedItem"
         (submitForm)="submit($event)"
         (close)="closeDialog()"
     ></app-destination-detail>
 </p-dialog>
+
+<p-dialog
+    *ngIf="visibleDialogImage"
+    [header]="dialogHeader"
+    [(visible)]="visibleDialogImage"
+    [modal]="true"
+    [style]="{ width: '70vw' }"
+    [draggable]="false"
+    [resizable]="false"
+>
+    <app-destination-image
+        [item]="selectedItem"
+        (submitForm)="submit($event)"
+        (close)="closeDialog()"
+    ></app-destination-image>
+</p-dialog>
+

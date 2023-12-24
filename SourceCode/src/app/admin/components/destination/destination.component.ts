@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ConfirmationService } from 'primeng/api';
 import { MessageConstants } from 'src/app/_shared/consts';
 import { DestinationDto } from 'src/app/_shared/models';
-import { NotificationService } from 'src/app/_shared/services';
+import { FileUploadService, NotificationService } from 'src/app/_shared/services';
 import { DestinationService } from 'src/app/_shared/services/destination.service';
 
 @Component({
@@ -16,7 +16,8 @@ export class DestinationComponent implements OnInit {
   loading: boolean = false;
 
   // Diablog
-  visibleDialog: boolean = false;
+  visibleDialogDetail: boolean = false;
+  visibleDialogImage: boolean = false;
   selectedItem: DestinationDto;
   dialogMode: 'create' | 'update' | 'view' = 'view';
   dialogHeader = '';
@@ -40,8 +41,13 @@ export class DestinationComponent implements OnInit {
         // console.log(this.items);
       });
   }
-  showDialog(mode: 'create' | 'update' | 'view', data: DestinationDto | undefined) {
-    debugger
+  showDialogImage(data: DestinationDto) {
+    this.dialogHeader = 'Quản lý ảnh';
+    this.selectedItem = data;
+    this.visibleDialogImage = true;
+  }
+
+  showDialogDetail(mode: 'create' | 'update' | 'view', data: DestinationDto | undefined) {
     switch (mode) {
       case 'create':
         this.dialogHeader = 'Thêm mới';
@@ -55,7 +61,7 @@ export class DestinationComponent implements OnInit {
     }
     this.dialogMode = mode;
     this.selectedItem = data;
-    this.visibleDialog = true;
+    this.visibleDialogDetail = true;
   }
   submit(data: DestinationDto) {
     this.loading = true;
@@ -78,8 +84,9 @@ export class DestinationComponent implements OnInit {
   }
   closeDialog() {
     this.dialogHeader = '';
-    this.visibleDialog = false;
+    this.visibleDialogDetail = false;
     this.selectedItem = null;
+    this.visibleDialogImage = false;
   }
   delete(id) {
     if (!id) {
