@@ -24,10 +24,6 @@ export class FileUploadService {
       finalize(() => {
         storageRef.getDownloadURL().subscribe(downloadURL => {
           fileUpload.url = downloadURL;
-          console.log('basePath', basePath);
-          console.log('downloadURL', downloadURL);
-          console.log('file.name', fileUpload.file.name);
-
           fileUpload.name = fileUpload.file.name;
           this.saveFileData(basePath, fileUpload);
         });
