@@ -29,6 +29,7 @@ export class PackagesDetailComponent implements OnInit {
         ],
         Code: [
             { type: 'required', message: MessageConstants.REQUIRED_ERROR_MSG },
+            { type: 'maxlength', message: `Tên không quá 50 ký tự` },
         ],
         DestinationId: [
             { type: 'required', message: MessageConstants.REQUIRED_ERROR_MSG },
@@ -70,7 +71,7 @@ export class PackagesDetailComponent implements OnInit {
     buildForm() {
         this.form = this.fb.group({
             Id: [null],
-            Code: [null, [Validators.required]],
+            Code: [null, [Validators.required, Validators.maxLength(50)]],
             Name: [
                 null,
                 [Validators.required, Validators.maxLength(100)],

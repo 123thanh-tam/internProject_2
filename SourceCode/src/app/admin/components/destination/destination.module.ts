@@ -18,6 +18,8 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { DialogModule } from 'primeng/dialog';
 import { AngularFireStorageModule } from "@angular/fire/compat/storage";
 import { DetinationImageComponent } from './detination-image/detination-image.component';
+import { ProgressBarModule } from 'primeng/progressbar';
+import { ImageModule } from 'primeng/image';
 
 @NgModule({
   imports: [
@@ -37,6 +39,8 @@ import { DetinationImageComponent } from './detination-image/detination-image.co
     InputTextareaModule,
     InputNumberModule,
     DialogModule,
+    ProgressBarModule,
+    ImageModule
   ],
   declarations: [
     DestinationComponent,

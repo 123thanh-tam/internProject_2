@@ -21,6 +21,10 @@ export class DestinationDetailComponent implements OnInit {
     title: string;
 
     validationMessages = {
+        Code: [
+            { type: 'required', message: MessageConstants.REQUIRED_ERROR_MSG },
+            { type: 'maxlength', message: `Tên không quá 50 ký tự` },
+        ],
         Name: [
             { type: 'required', message: MessageConstants.REQUIRED_ERROR_MSG },
             {
@@ -44,7 +48,7 @@ export class DestinationDetailComponent implements OnInit {
         return this.form.controls;
     }
 
-    constructor(private fb: FormBuilder, private utilService: UtilityService) {}
+    constructor(private fb: FormBuilder, private utilService: UtilityService) { }
 
     ngOnInit() {
         this.buildForm();
@@ -52,7 +56,8 @@ export class DestinationDetailComponent implements OnInit {
 
     buildForm() {
         this.form = this.fb.group({
-            Id: [null, Validators.required],
+            Id: [null],
+            Code: [null, [Validators.required, Validators.maxLength(50)]],
             Name: [null, [Validators.required, Validators.maxLength(100)]],
             Description: [
                 null,

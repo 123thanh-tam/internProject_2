@@ -8,7 +8,7 @@ import {
     doc,
     updateDoc,
 } from 'firebase/firestore';
-import { DestinationDto, ImageDto } from '../models';
+import { CreateDestinationDto, DestinationDto, ImageDto, UpdateDestinationDto } from '../models';
 import { Observable, finalize, forkJoin, from, map, tap } from 'rxjs';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { MessageConstants } from '../consts';
@@ -20,27 +20,17 @@ export class DestinationService {
         private fs: Firestore,
         private storage: AngularFireStorage,
         private notificationService: NotificationService
-    ) {}
+    ) { }
     get(id: string) {
         let docRef = doc(this.fs, 'Destinations/' + id);
         return docData(docRef, { idField: 'Id' }).pipe(
             tap((x: DocumentData) => {
-                let images = [];
-                if (x['Images'] && x['Images'].length) {
-                    for (let index = 0; index < x['Images'].length; index++) {
-                        let image = new ImageDto();
-                        image.Url = x['Images'][index].Url;
-                        image.Path = x['Images'][index].Path;
-                        image.Name = x['Images'][index].Name;
-                        image.Size = x['Images'][index].Size;
-                        images.push(image);
-                    }
-                }
                 return new DestinationDto(
+                    x['Code'],
                     x['Name'],
                     x['Description'],
                     x['Rating'],
-                    images,
+                    x['Images'],
                     id
                 );
             })
@@ -51,39 +41,33 @@ export class DestinationService {
         return collectionData(desCollection, { idField: 'Id' }).pipe(
             map((data: DocumentData[]) => {
                 return data.map((x) => {
-                    let images = [];
-                    if (x['Images'] && x['Images'].length) {
-                        for (
-                            let index = 0;
-                            index < x['Images'].length;
-                            index++
-                        ) {
-                            let image = new ImageDto();
-                            image.Url = x['Images'][index].Url;
-                            image.Path = x['Images'][index].Path;
-                            image.Name = x['Images'][index].Name;
-                            image.Size = x['Images'][index].Size;
-                            images.push(image);
-                        }
-                    }
                     return new DestinationDto(
+                        x['Code'],
                         x['Name'],
                         x['Description'],
                         x['Rating'],
-                        images,
+                        x['Images'],
                         x['Id']
                     );
                 });
             })
         );
     }
-    add(destination: DestinationDto) {
+    add(destination: CreateDestinationDto) {
         let desCollection = collection(this.fs, 'Destinations');
         return addDoc(desCollection, { ...destination });
     }
-    update(id: string, destination: DestinationDto) {
+    update(id: string, destination: UpdateDestinationDto) {
+        debugger
         let docRef = doc(this.fs, 'Destinations/' + id);
-        return updateDoc(docRef, { ...destination });
+        return updateDoc(docRef, {
+            Code: destination.Code,
+            Name: destination.Name,
+            Description: destination.Description,
+            Rating: destination.Rating,
+            Id: destination.Id,
+            Images: destination.Images,
+        });
     }
     delete(des: DestinationDto) {
         let pros = [];
@@ -111,19 +95,21 @@ export class DestinationService {
             .pipe(
                 finalize(() => {
                     storageRef.getDownloadURL().subscribe((downloadURL) => {
-                        let imageDto = new ImageDto();
-                        imageDto.Url = downloadURL;
-                        imageDto.Path = filePath;
-                        imageDto.Name = file.name;
-                        imageDto.Size = file.size;
-
+                        let imageDto = new ImageDto(downloadURL, filePath, file.name, file.size);
                         if (des.Images) {
                             des.Images.push(imageDto);
                         } else {
                             des.Images = [imageDto];
                         }
-
-                        this.update(des.Id, des).then((x) => {
+                        let updateDto = {
+                            Id: des.Id,
+                            Code: des.Code,
+                            Name: des.Name,
+                            Description: des.Description,
+                            Rating: des.Rating,
+                            Images: JSON.stringify(des.Images)
+                        } as UpdateDestinationDto;
+                        this.update(des.Id, updateDto).then((x) => {
                             this.notificationService.showSuccess(
                                 MessageConstants.UPLOAD_OK_MSG
                             );
@@ -135,8 +121,17 @@ export class DestinationService {
         return uploadTask.percentageChanges();
     }
     deleteImage(des: DestinationDto, imageDto: ImageDto): Observable<any> {
+
         des.Images = des.Images.filter((x) => x.Name != imageDto.Name);
-        let update$ = from(this.update(des.Id, des));
+        let updateDto = {
+            Id: des.Id,
+            Code: des.Code,
+            Name: des.Name,
+            Description: des.Description,
+            Rating: des.Rating,
+            Images: JSON.stringify(des.Images)
+        } as UpdateDestinationDto;
+        let update$ = from(this.update(des.Id, updateDto));
         let deleteImage$ = this.delImg(imageDto.Path);
         return forkJoin([update$, deleteImage$]);
     }

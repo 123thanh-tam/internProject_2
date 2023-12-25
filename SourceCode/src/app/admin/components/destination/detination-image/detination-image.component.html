@@ -8,40 +8,86 @@
                     (change)="selectFile($event)"
                 />
             </label>
-        </div>
-
-        <div class="col-4">
             <button
-                class="btn btn-success btn-sm"
+                type="button"
+                pButton
+                pRipple
+                label="Upload"
+                icon="pi pi-upload"
+                class="p-button-info ml-2"
+                pTooltip="Upload"
+                tooltipPosition="top"
                 [disabled]="!selectedFiles"
                 (click)="upload()"
-            >
-                Upload
-            </button>
+            ></button>
         </div>
     </div>
 
-    <div *ngIf="currentFileUpload" class="progress mt-2">
-        <div
-            class="progress-bar progress-bar-info"
-            role="progressbar"
-            attr.aria-valuenow="{{ percentage }}"
-            aria-valuemin="0"
-            aria-valuemax="100"
-            [ngStyle]="{ width: percentage + '%' }"
-        >
-            {{ percentage }}%
-        </div>
+    <div *ngIf="percentage > 0 && percentage < 100" class="col-12">
+        <p-progressBar [value]="percentage"></p-progressBar>
     </div>
 </div>
 
-<div class="col-12">
-    <div class="card">
-        <div class="card-header">List of images</div>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item" *ngFor="let image of item.Images">
-                <img [src]="image.Url" alt="Destination image" />
-            </li>
-        </ul>
-    </div>
+<div class="card col-12">
+    <p-table
+        #dt
+        [value]="item.Images"
+        dataKey="Name"
+        [rows]="10"
+        [showCurrentPageReport]="true"
+        [rowsPerPageOptions]="[10, 25, 50]"
+        [paginator]="true"
+        currentPageReportTemplate="{first}-{last}/{totalRecords}"
+        [globalFilterFields]="['Name']"
+    >
+        <ng-template pTemplate="caption">
+            <div class="flex">
+                <span class="p-input-icon-right ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input
+                        pInputText
+                        type="text"
+                        (input)="
+                            dt1.filterGlobal($event.target.value, 'contains')
+                        "
+                        placeholder="Tìm kiếm"
+                    />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="Name" style="width: 20%">
+                    Tên <p-sortIcon field="Name"></p-sortIcon>
+                </th>
+                <th>Ảnh</th>
+                <th>Dung lượng</th>
+                <th>Thao tác</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-row let-rowIndex="rowIndex">
+            <tr>
+                <td>{{ row.Name }}</td>
+                <td>
+                    <p-image
+                        [src]="row.Url"
+                        [alt]="row.Name"
+                        width="50"
+                        [preview]="true"
+                    ></p-image>
+                </td>
+                <td>{{ formatBytes(row.Size) }}</td>
+                <td>
+                    <button
+                        pButton
+                        pRipple
+                        [rounded]="true"
+                        icon="pi pi-trash"
+                        class="p-button-rounded p-button-danger"
+                        (click)="delete(row)"
+                    ></button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
 </div>

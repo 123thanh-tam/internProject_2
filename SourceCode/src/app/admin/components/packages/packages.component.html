@@ -10,7 +10,7 @@
             [loading]="loading"
             [paginator]="true"
             currentPageReportTemplate="{first}-{last}/{totalRecords}"
-            [globalFilterFields]="['Name']"
+            [globalFilterFields]="['Code','Name']"
             dataKey="id"
         >
             <ng-template pTemplate="caption">
@@ -44,8 +44,12 @@
             </ng-template>
             <ng-template pTemplate="header">
                 <tr>
-                    <th pSortableColumn="isPublic">Mã</th>
-                    <th pSortableColumn="isPublic">Tên</th>
+                    <th pSortableColumn="Code" style="width: 20%">
+                        Mã <p-sortIcon field="Code"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="Name" style="width: 20%">
+                        Tên <p-sortIcon field="Name"></p-sortIcon>
+                    </th>
                     <th pSortableColumn="isPublic">Địa điểm</th>
                     <th pSortableColumn="isPublic">Ngày khởi hành</th>
                     <th pSortableColumn="isPublic">Số ngày</th>

@@ -10,7 +10,7 @@
             [loading]="loading"
             [paginator]="true"
             currentPageReportTemplate="{first}-{last}/{totalRecords}"
-            [globalFilterFields]="['Name']"
+            [globalFilterFields]="['Code', 'Name']"
             dataKey="id"
         >
             <ng-template pTemplate="caption">
@@ -44,6 +44,9 @@
             </ng-template>
             <ng-template pTemplate="header">
                 <tr>
+                    <th pSortableColumn="Code" style="width: 20%">
+                        Mã <p-sortIcon field="Code"></p-sortIcon>
+                    </th>
                     <th pSortableColumn="Name" style="width: 20%">
                         Tên <p-sortIcon field="Name"></p-sortIcon>
                     </th>
@@ -53,6 +56,7 @@
             </ng-template>
             <ng-template pTemplate="body" let-row let-rowIndex="rowIndex">
                 <tr>
+                    <td>{{ row.Code }}</td>
                     <td>{{ row.Name }}</td>
                     <td>
                         <p-rating
@@ -121,7 +125,5 @@
     [resizable]="false"
     (close)="closeDialog()"
 >
-    <app-detination-image
-        [item]="selectedItem"
-    ></app-detination-image>
+    <app-detination-image [item]="selectedItem"></app-detination-image>
 </p-dialog>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfirmationService } from 'primeng/api';
 import { MessageConstants } from 'src/app/_shared/consts';
-import { DestinationDto } from 'src/app/_shared/models';
+import { CreateDestinationDto, DestinationDto, UpdateDestinationDto } from 'src/app/_shared/models';
 import {
     FileUploadService,
     NotificationService,
@@ -28,7 +28,7 @@ export class DestinationComponent implements OnInit {
         private destinationService: DestinationService,
         private notificationService: NotificationService,
         private confirmationService: ConfirmationService
-    ) {}
+    ) { }
 
     ngOnInit() {
         this.getData();
@@ -66,10 +66,10 @@ export class DestinationComponent implements OnInit {
         this.selectedItem = data;
         this.visibleDialogDetail = true;
     }
-    submit(data: DestinationDto) {
+    submit(des: DestinationDto) {
         this.loading = true;
         if (this.dialogMode == 'create') {
-            this.destinationService.add(data).then((res) => {
+            this.destinationService.add(des as CreateDestinationDto).then((res) => {
                 this.notificationService.showSuccess(
                     MessageConstants.CREATED_OK_MSG
                 );
@@ -78,7 +78,15 @@ export class DestinationComponent implements OnInit {
                 this.loading = false;
             });
         } else if (this.dialogMode == 'update') {
-            this.destinationService.update(data.Id, data).then((res) => {
+            let updateDto = {
+                Id: des.Id,
+                Code: des.Code,
+                Name: des.Name,
+                Description: des.Description,
+                Rating: des.Rating,
+                Images: JSON.stringify(des.Images)
+            } as UpdateDestinationDto;
+            this.destinationService.update(des.Id, updateDto).then((res) => {
                 this.notificationService.showSuccess(
                     MessageConstants.UPDATED_OK_MSG
                 );
