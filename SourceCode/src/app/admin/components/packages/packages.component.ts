@@ -3,7 +3,10 @@ import { ConfirmationService } from 'primeng/api';
 import { MessageConstants } from 'src/app/_shared/consts';
 import { DestinationDto } from 'src/app/_shared/models';
 import { PackagesDto } from 'src/app/_shared/models/packages';
-import { DestinationService, NotificationService } from 'src/app/_shared/services';
+import {
+    DestinationService,
+    NotificationService,
+} from 'src/app/_shared/services';
 import { PackagesService } from 'src/app/_shared/services/packages.service';
 @Component({
     selector: 'app-packages',
@@ -24,11 +27,10 @@ export class PackagesComponent implements OnInit {
         private packagesService: PackagesService,
         private notificationService: NotificationService,
         private confirmationService: ConfirmationService,
-        private destinationService: DestinationService,
-    ) { }
+        private destinationService: DestinationService
+    ) {}
 
     ngOnInit() {
-        // Quên câu này s mà ra data :)
         this.getData();
         this.getDestinations();
     }
@@ -43,11 +45,10 @@ export class PackagesComponent implements OnInit {
 
     getDestinations() {
         this.loading = true;
-        this.destinationService.getAll()
-            .subscribe(res => {
-                this.destinations = res;
-                this.loading = false;
-            });
+        this.destinationService.getAll().subscribe((res) => {
+            this.destinations = res;
+            this.loading = false;
+        });
     }
     showDialog(
         mode: 'create' | 'update' | 'view',
@@ -115,12 +116,12 @@ export class PackagesComponent implements OnInit {
                     })
                     .catch((err) => {
                         this.loading = false;
-                        console.error('Delete Destomatopm Errpr:', err);
+                        console.error('Delete Packages Error:', err);
                     });
             },
         });
     }
     findDestination(id: string) {
-        return this.destinations.find(x => x.Id == id);
+        return this.destinations.find((x) => x.Id == id);
     }
 }

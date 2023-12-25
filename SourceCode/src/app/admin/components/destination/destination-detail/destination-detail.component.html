@@ -21,6 +21,26 @@
                 >
                 </app-validation-message>
             </div>
+            <!-- Id -->
+            <div class="field col-12 md:col-6">
+                <span class="p-float-label">
+                    <input
+                        autofocus
+                        formControlName="Id"
+                        type="text"
+                        pInputText
+                        [style]="{ width: '100%' }"
+                    />
+                    <label for="tenTaiLieu"
+                        >Ma <span class="required">*</span></label
+                    >
+                </span>
+                <app-validation-message
+                    [entityControl]="formControls['Id']"
+                    [validationMessages]="validationMessages.Id"
+                >
+                </app-validation-message>
+            </div>
             <!-- ----------------------------Rating---------------------------=----------------------------- -->
             <div class="field col-12 md:col-6">
                 <span class="p-float-label">

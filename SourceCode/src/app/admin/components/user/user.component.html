@@ -1,3 +1,102 @@
-<p>
-  user works!
-</p>
+<div class="animated fadeIn card">
+  <p-panel #pnl>
+      <p-table
+          #dt
+          [value]="items"
+          dataKey="id"
+          [rows]="10"
+          [showCurrentPageReport]="true"
+          [rowsPerPageOptions]="[10, 25, 50]"
+          [loading]="loading"
+          [paginator]="true"
+          currentPageReportTemplate="{first}-{last}/{totalRecords}"
+          [globalFilterFields]="['Name']"
+          dataKey="id"
+      >
+          <ng-template pTemplate="caption">
+              <div class="flex">
+                  <button
+                      type="button"
+                      pButton
+                      pRipple
+                      label="Thêm"
+                      icon="pi pi-plus"
+                      class="p-button-info mr-1"
+                      pTooltip="Thêm"
+                      tooltipPosition="top"
+                      (click)="showDialog('create')"
+                  ></button>
+                  <span class="p-input-icon-right ml-auto">
+                      <i class="pi pi-search"></i>
+                      <input
+                          pInputText
+                          type="text"
+                          (input)="
+                              dt1.filterGlobal(
+                                  $event.target.value,
+                                  'contains'
+                              )
+                          "
+                          placeholder="Tìm kiếm"
+                      />
+                  </span>
+              </div>
+          </ng-template>
+          <ng-template pTemplate="header">
+              <tr>
+                  <th pSortableColumn="isPublic">Mã</th>
+                  <th pSortableColumn="isPublic">Tên</th>
+                  <th pSortableColumn="isPublic">Kiểu người dùng</th>
+                  <th pSortableColumn="isPublic">Email</th>
+                  <th pSortableColumn="isDefault">Số điện thoại</th>
+                  <th>Thao tác</th>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-row let-rowIndex="rowIndex">
+              <tr>
+                  <td>{{ row.UsersId }}</td>
+                  <td>{{ row.Name }}</td>
+                  <td>{{ row.Kind }}</td>
+                  <td>{{ row.Email }}</td>
+                  <td>{{ row.Phone }}</td>
+                  <td>
+                      <button
+                          pButton
+                          pRipple
+                          icon="pi pi-pencil"
+                          class="p-button-rounded p-button-success mr-2"
+                          (click)="showDialog('update', row)"
+                      ></button>
+                      <button
+                          pButton
+                          pRipple
+                          [rounded]="true"
+                          icon="pi pi-trash"
+                          class="p-button-rounded p-button-danger"
+                          (click)="delete(row.Id)"
+                      ></button>
+                  </td>
+              </tr>
+          </ng-template>
+      </p-table>
+  </p-panel>
+</div>
+
+<p-dialog
+  *ngIf="visibleDialog"
+  [header]="dialogHeader"
+  [(visible)]="visibleDialog"
+  [modal]="true"
+  [style]="{ width: '70vw' }"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <app-users-detail
+      [mode]="dialogMode"
+      [id]="selectedItem ? selectedItem?.Id : null"
+      [item]="selectedItem"
+      (submitForm)="submit($event)"
+      (close)="closeDialog()"
+  ></app-users-detail>
+</p-dialog>
+

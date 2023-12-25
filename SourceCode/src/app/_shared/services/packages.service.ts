@@ -16,7 +16,10 @@ import { UtilityService } from './utility.service';
     providedIn: 'root',
 })
 export class PackagesService {
-    constructor(private fs: Firestore, private utilityService: UtilityService) { }
+    constructor(
+        private fs: Firestore,
+        private utilityService: UtilityService
+    ) {}
     get(id: string) {
         let docRef = doc(this.fs, 'Packages/' + id);
         return docData(docRef, { idField: 'Id' }).pipe(
@@ -26,7 +29,9 @@ export class PackagesService {
                         x['Code'],
                         x['Name'],
                         x['DestinationId'],
-                        this.utilityService.convertTimestampToDate(x['StartDate']),
+                        this.utilityService.convertTimestampToDate(
+                            x['StartDate']
+                        ),
                         x['DateCount'],
                         x['People'],
                         x['Price'],
@@ -46,7 +51,9 @@ export class PackagesService {
                             x['Code'],
                             x['Name'],
                             x['DestinationId'],
-                            this.utilityService.convertTimestampToDate(x['StartDate']),
+                            this.utilityService.convertTimestampToDate(
+                                x['StartDate']
+                            ),
                             x['DateCount'],
                             x['People'],
                             x['Price'],
@@ -57,13 +64,13 @@ export class PackagesService {
             })
         );
     }
-    add(dât: PackagesDto) {
+    add(data: PackagesDto) {
         let pacCollection = collection(this.fs, 'Packages');
-        return addDoc(pacCollection, { ...dât });
+        return addDoc(pacCollection, { ...data });
     }
-    update(id: string, dât: PackagesDto) {
+    update(id: string, data: PackagesDto) {
         let docRef = doc(this.fs, 'Packages/' + id);
-        return updateDoc(docRef, { ...dât });
+        return updateDoc(docRef, { ...data });
     }
     delete(id: string) {
         let docRef = doc(this.fs, 'Packages/' + id);
