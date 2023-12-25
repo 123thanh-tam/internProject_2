@@ -27,7 +27,7 @@ import { HttpErrorInterceptorService } from './_shared/interceptors';
         portalLayoutModule,
         ConfirmDialogModule,
         ToastModule,
-        AngularFireModule.initializeApp(environment.firebase),
+        AngularFireModule.initializeApp(environment.firebaseConfig),
         // provideFirebaseApp(() => {
         //     return initializeApp(environment.firebase);
         // }),

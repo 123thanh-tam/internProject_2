@@ -1,15 +1,47 @@
-<!-- ----------------------------file---------------------------=----------------------------- -->
-<div class="field col-12 md:col-6">
-    <p-fileUpload
-        name="file[]"
-        [customUpload]="true"
-        invalidFileSizeMessageSummary="{0}: Vượt quá dung lượng cho phép!"
-        chooseLabel="Chọn tệp"
-        uploadLabel="Tải lên"
-        cancelLabel="Hủy"
-        [auto]="true"
-        [multiple]="true"
-        (uploadHandler)="choseFile($event)"
-        (onRemove)="removeFile($event)"
-    ></p-fileUpload>
+<div class="grid col-12">
+    <div class="row">
+        <div class="col-12">
+            <label>
+                <input
+                    type="file"
+                    class="text-nowrap text-truncate"
+                    (change)="selectFile($event)"
+                />
+            </label>
+        </div>
+
+        <div class="col-4">
+            <button
+                class="btn btn-success btn-sm"
+                [disabled]="!selectedFiles"
+                (click)="upload()"
+            >
+                Upload
+            </button>
+        </div>
+    </div>
+
+    <div *ngIf="currentFileUpload" class="progress mt-2">
+        <div
+            class="progress-bar progress-bar-info"
+            role="progressbar"
+            attr.aria-valuenow="{{ percentage }}"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            [ngStyle]="{ width: percentage + '%' }"
+        >
+            {{ percentage }}%
+        </div>
+    </div>
+</div>
+
+<div class="col-12">
+    <div class="card">
+        <div class="card-header">List of images</div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item" *ngFor="let image of item.Images">
+                <img [src]="image.Url" alt="Destination image" />
+            </li>
+        </ul>
+    </div>
 </div>

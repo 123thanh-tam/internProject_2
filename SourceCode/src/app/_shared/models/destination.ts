@@ -1,20 +1,26 @@
+import { ImageDto } from "./image";
+
 export class DestinationDto {
     constructor(
         name: string,
         description: string,
-        images: string[],
         rating: number,
+        images: ImageDto[] = null,
         id: string = ''
     ) {
         this.Name = name;
         this.Description = description;
-        this.Images = images;
         this.Rating = rating;
-        if (id) this.Id = id;
+        if (id) this.Id = id ? id : null;
+        if (images && images.length) {
+            this.Images = [...images];
+        } else {
+            this.Images = null;
+        }
     }
     Id?: string;
     Name: string;
     Description: string;
-    Images: string[];
+    Images: ImageDto[];
     Rating: number;
 }

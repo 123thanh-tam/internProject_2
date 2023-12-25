@@ -1,13 +1,11 @@
 export const environment = {
     production: false,
-    firebase: {
-        apiKey: 'AIzaSyBir07PDRPqw7jahdXb3YSHujIJ4pDAEik',
-        authDomain: 'travel-web-5f766.firebaseapp.com',
-        databaseURL: 'https://travel-web-5f766-default-rtdb.firebaseio.com',
-        projectId: 'travel-web-5f766',
-        storageBucket: 'travel-web-5f766.appspot.com',
-        messagingSenderId: '41898934897',
-        appId: '1:41898934897:web:c38cb171114f7c58dc51d0',
-        measurementId: 'G-E573X4G9TC',
+    firebaseConfig: {
+        apiKey: 'AIzaSyBG2_fG-mgVuQPppdXZ2J4GVH7XxXV9JmQ',
+        authDomain: 'travel-data-960b4.firebaseapp.com',
+        projectId: 'travel-data-960b4',
+        storageBucket: 'travel-data-960b4.appspot.com',
+        messagingSenderId: '314394847999',
+        appId: '1:314394847999:web:5a3ace675ae4587671baca',
     },
 };
