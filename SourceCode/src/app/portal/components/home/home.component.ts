@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { find } from 'rxjs';
 import { PackagesService } from 'src/app/_shared/services';
 import { DestinationService } from 'src/app/_shared/services';
 // import { PackagesDto } from 'src/app/_shared/models';
@@ -17,6 +18,7 @@ export class HomeComponent implements OnInit {
     ) {}
     packages: any = [];
     destinations: any = [];
+    images: any[];
     ngOnInit() {
         this.refreshPackages();
         this.refreshDestinations();
@@ -24,6 +26,9 @@ export class HomeComponent implements OnInit {
     refreshPackages() {
         this.packageService.getAll().subscribe((res) => {
             this.packages = res;
+            for (let pac in this.packages) {
+                //    let des=  this.findDestination(pac.DestnationId);
+            }
         });
     }
     refreshDestinations() {
@@ -31,9 +36,7 @@ export class HomeComponent implements OnInit {
             this.destinations = res;
         });
     }
-    // addPackage(data: PackagesDto ){
-    //   this.packageService.add(data).then((res)=>{
-    //     this.refreshPackages();
-    //   })
-    // }
+    findDestination(id: string) {
+        return this.destinations.find((x) => x.Id == id);
+    }
 }

@@ -42,7 +42,8 @@ export class AppMenuComponent implements OnInit {
                         routerLink: ['/admin/packages'], // Cần cấu hình trong app-routing
                     },
                     {
-                        label: 'tours',
+                        label: 'Tours',
+                        icon: 'pi pi-slack',
                         routerLink: ['/admin/tours'],
                     },
                 ],

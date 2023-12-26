@@ -9,6 +9,7 @@ import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { PackagesService } from 'src/app/_shared/services';
 import { DestinationService } from 'src/app/_shared/services';
+import { ServicePageComponent } from 'src/app/_shared/components/service-page/service-page.component';
 const firebaseConfig = {
     apiKey: 'AIzaSyBG2_fG-mgVuQPppdXZ2J4GVH7XxXV9JmQ',
     authDomain: 'travel-data-960b4.firebaseapp.com',
@@ -22,6 +23,7 @@ const components = [
     portalFooterComponent,
     PortalHeaderComponent,
     TouristComponent,
+    ServicePageComponent,
 ];
 
 @NgModule({

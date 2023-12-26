@@ -1,1 +1,1 @@
-export const KindConstants = ['admin', 'user', 'guide'];
+export const KindConstants = ['admin', 'customer', 'guide'];

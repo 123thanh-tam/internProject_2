@@ -1,0 +1,139 @@
+<form [formGroup]="form">
+  <p-panel #pnlDetail [collapsed]="false" [showHeader]="false">
+      <div class="formgrid grid card">
+         
+          <!-- -----------------------------------NameCustomer----------------------------------------------- -->
+          <div class="field col-12 md:col-6">
+              <span class="p-float-label">
+                  <input
+                      formControlName="NameCustomer"
+                      type="text"
+                      pInputText
+                      [style]="{ width: '100%' }"
+                  />
+                  <label for="tenTaiLieu"
+                      >Name Customer <span class="required">*</span></label
+                  >
+              </span>
+              <app-validation-message
+                  [entityControl]="formControls['Name']"
+                  [validationMessages]="validationMessages.NameCustomer"
+              >
+              </app-validation-message>
+          </div>
+          <!-- ----------------------------DestinationName---------------------------=----------------------------- -->
+          <div class="field col-12 md:col-6">
+              <span class="p-float-label">
+                  <p-dropdown
+                      formControlName="NameDestination"
+                      [options]="destinationsOptions"
+                      optionLabel="text"
+                      optionValue="value"
+                      [showClear]="true"
+                      [autoDisplayFirst]="false"
+                      [filter]="true"
+                      filterBy="text"
+                      styleClass="w-full"
+                  ></p-dropdown>
+                  <label>Destination<span class="required">*</span></label>
+              </span>
+              <app-validation-message
+                  [entityControl]="formControls['NameDestination']"
+                  [validationMessages]="validationMessages.NameDestination"
+              >
+              </app-validation-message>
+          </div>
+          <!-- GuideName -->
+          <div class="field col-12 md:col-6">
+            <span class="p-float-label">
+                <p-dropdown
+                    formControlName="NameGuide"
+                    [options]="guidesOptions"
+                    optionLabel="text"
+                    optionValue="value"
+                    [showClear]="true"
+                    [autoDisplayFirst]="false"
+                    [filter]="true"
+                    filterBy="text"
+                    styleClass="w-full"
+                ></p-dropdown>
+                <label>Guide Name<span class="required">*</span></label>
+            </span>
+            <app-validation-message
+                [entityControl]="formControls['NameGuide']"
+                [validationMessages]="validationMessages.NameGuide"
+            >
+            </app-validation-message>
+        </div>
+          <!-- Price -->
+          <div class="field col-12 md:col-6">
+            <span class="p-float-label">
+                <p-dropdown
+                    formControlName="Price"
+                    [options]="priceOptions"
+                    optionLabel="text"
+                    optionValue="value"
+                    [showClear]="true"
+                    [autoDisplayFirst]="false"
+                    [filter]="true"
+                    filterBy="text"
+                    styleClass="w-full"
+                ></p-dropdown>
+                <label>Price<span class="required">*</span></label>
+            </span>
+            <app-validation-message
+                [entityControl]="formControls['Price']"
+                [validationMessages]="validationMessages.Price"
+            >
+            </app-validation-message>
+        </div>
+          <!-- ----------------------------Discount---------------------------=----------------------------- -->
+          <div class="field col-12 md:col-6">
+            <span class="p-float-label">
+                <p-dropdown
+                    formControlName="Discount"
+                    [options]="discountOptions"
+                    optionLabel="text"
+                    optionValue="value"
+                    [showClear]="true"
+                    [autoDisplayFirst]="false"
+                    [filter]="true"
+                    filterBy="text"
+                    styleClass="w-full"
+                ></p-dropdown>
+                <label>Discount<span class="required">*</span></label>
+            </span>
+            <app-validation-message
+                [entityControl]="formControls['Price']"
+                [validationMessages]="validationMessages.Price"
+            >
+            </app-validation-message>
+        </div>
+          <!-- ---------------------------------------------------------------------------------- -->
+      </div>
+      <!-- ---------------------------------------------------------------------------------- -->
+      <ng-template pTemplate="footer">
+          <div class="flex justify-content-end">
+              <button
+                  *ngIf="mode != 'view'"
+                  pButton
+                  pRipples
+                  type="button"
+                  (click)="saveChange()"
+                  label="Lưu"
+                  class="p-button-info mr-2"
+                  icon="pi pi-check"
+              ></button>
+              <button
+                  pButton
+                  pRipples
+                  type="button"
+                  (click)="closeModal()"
+                  label="Đóng"
+                  class="p-button-danger"
+                  icon="pi pi-times"
+              ></button>
+          </div>
+      </ng-template>
+  </p-panel>
+</form>
