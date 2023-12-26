@@ -152,9 +152,9 @@
   <div class=" grid grid-cols-3 gap-5">
     <div *ngFor="let package of packages">
       <div class="pb-7 shadow-shadow-service">
-        <div class="overflow-hidden h-60">
-          <div class="img-package1 des-imgOrigin des-img h-60"></div>
-          <!-- <img src="{{destination.Images}}" alt=""> -->
+        <div class="overflow-hidden h-60" *ngFor="let img of findDestination(package.DestinationId)?.Images">
+          <img [src]="img.Url" class="h-60 des-img des-imgOrigin" alt="">
+          <!-- <div class="img-package1 des-imgOrigin des-img h-60"></div> -->
         </div>
         <div class="grid grid-cols-3 text-center text-gray-600 pt-3">
           <p class="pt-2 border-r-default border-gray-400"><i class="text-light-green pr-1 pi pi-map-marker"></i>{{package.Name}}
