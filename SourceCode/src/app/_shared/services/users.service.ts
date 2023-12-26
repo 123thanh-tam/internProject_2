@@ -22,11 +22,11 @@ export class UsersService {
     ) {}
     get(id: string) {
         let docRef = doc(this.fs, 'users/' + id);
-        return docData(docRef, { idField: 'UsersId' }).pipe(
+        return docData(docRef, { idField: 'Id' }).pipe(
             tap(
                 (x: DocumentData) =>
                     new UsersDto(
-                        x['UsersId'],
+                        x['Id'],
                         x['Name'],
                         x['Kind'],
                         x['Email'],
@@ -37,12 +37,12 @@ export class UsersService {
     }
     getAll() {
         let usersCollection = collection(this.fs, 'users');
-        return collectionData(usersCollection, { idField: 'UsersId' }).pipe(
+        return collectionData(usersCollection, { idField: 'Id' }).pipe(
             map((data: DocumentData[]) => {
                 return data.map(
                     (x) =>
                         new UsersDto(
-                            x['UsersId'],
+                            x['Id'],
                             x['Name'],
                             x['Kind'],
                             x['Email'],

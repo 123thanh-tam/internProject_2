@@ -6,13 +6,15 @@ export class UsersDto {
         email: string,
         phone: string
     ) {
-        this.UsersId = id;
+        if (id) {
+            this.Id = id;
+        }
         this.Name = name;
         this.Kind = kind;
         this.Email = email;
         this.Phone = phone;
     }
-    UsersId: string;
+    Id: string;
     Name: string;
     Kind: string;
     Email: string;

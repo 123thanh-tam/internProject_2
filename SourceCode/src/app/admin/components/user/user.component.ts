@@ -6,6 +6,7 @@ import { MessageConstants } from 'src/app/_shared/consts';
 // import { PackagesDto } from 'src/app/_shared/models/packages';
 import { UsersDto } from 'src/app/_shared/models';
 import { UsersService } from 'src/app/_shared/services/users.service';
+import { KindConstants } from 'src/app/_shared/consts';
 @Component({
     selector: 'app-user',
     templateUrl: './user.component.html',
@@ -63,7 +64,7 @@ export class UserComponent implements OnInit {
                 this.loading = false;
             });
         } else if (this.dialogMode == 'update') {
-            this.usersService.update(data.UsersId, data).then((res) => {
+            this.usersService.update(data.Id, data).then((res) => {
                 this.notificationService.showSuccess(
                     MessageConstants.UPDATED_OK_MSG
                 );

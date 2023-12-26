@@ -1,10 +1,11 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessageConstants } from 'src/app/_shared/consts';
+import { KindConstants } from 'src/app/_shared/consts';
 import { UsersDto } from 'src/app/_shared/models';
 import { UsersService } from 'src/app/_shared/services/users.service';
 import { UtilityService } from 'src/app/_shared/services';
-import { DropDownUsers } from 'src/app/_shared/models/drop-down-users';
+import { DropDownItem } from 'src/app/_shared/models';
 @Component({
     selector: 'app-users-detail',
     templateUrl: './users-detail.component.html',
@@ -20,7 +21,7 @@ export class UsersDetailComponent implements OnInit {
 
     form: FormGroup;
     title: string;
-    usersOptions: DropDownUsers[];
+    usersOptions: DropDownItem[];
     validationMessages = {
         Name: [
             { type: 'required', message: MessageConstants.REQUIRED_ERROR_MSG },
@@ -62,12 +63,13 @@ export class UsersDetailComponent implements OnInit {
 
     ngOnInit() {
         this.buildForm();
-        this.getKindUsers;
+        this.getKindUsers();
     }
     getKindUsers() {
-        this.usersService.getAll().subscribe((res) => {
-            this.usersOptions = res.map((x) => new DropDownUsers(x.Kind));
-        });
+        // this.usersService.getAll().subscribe((res) => {
+        //     this.usersOptions = res.map((x) => new DropDownItem(x.Kind));
+        // });
+        this.usersOptions = KindConstants.map((x) => new DropDownItem(x, x));
     }
     buildForm() {
         this.form = this.fb.group({
