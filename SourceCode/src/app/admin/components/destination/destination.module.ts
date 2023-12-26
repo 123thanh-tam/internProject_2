@@ -38,7 +38,7 @@ import { ImageModule } from 'primeng/image';
     FileUploadModule,
     InputTextareaModule,
     InputNumberModule,
-    DialogModule,
+  DialogModule,
     ProgressBarModule,
     ImageModule
   ],

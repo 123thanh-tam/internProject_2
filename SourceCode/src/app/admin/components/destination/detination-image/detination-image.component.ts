@@ -20,7 +20,6 @@ export class DetinationImageComponent implements OnInit {
     fileUploads?: any[];
 
     selectedFiles?: FileList;
-    currentFileUpload?: FileUpload;
     percentage = 0;
     iamageUrls = [];
 

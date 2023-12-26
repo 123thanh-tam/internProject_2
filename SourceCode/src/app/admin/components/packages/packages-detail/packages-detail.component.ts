@@ -1,9 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MessageConstants } from 'src/app/_shared/consts';
+import { MessageConstants, eUserKind } from 'src/app/_shared/consts';
 import { DestinationService, UtilityService } from 'src/app/_shared/services';
 import { PackagesDto as PackagesDto } from 'src/app/_shared/models/packages';
 import { DropDownItem } from 'src/app/_shared/models';
+import { UsersService } from 'src/app/_shared/services/users.service';
 
 @Component({
     selector: 'app-packages-detail',
@@ -21,15 +22,16 @@ export class PackagesDetailComponent implements OnInit {
     form: FormGroup;
     title: string;
     destinationOptions: DropDownItem[];
+    travelGuideOptions: DropDownItem[] = [];
 
     validationMessages = {
         Name: [
             { type: 'required', message: MessageConstants.REQUIRED_ERROR_MSG },
-            { type: 'maxlength', message: `Tên không quá 100 ký tự` },
+            { type: 'maxlength', message: `Name không quá 100 ký tự` },
         ],
         Code: [
             { type: 'required', message: MessageConstants.REQUIRED_ERROR_MSG },
-            { type: 'maxlength', message: `Tên không quá 50 ký tự` },
+            { type: 'maxlength', message: `Name không quá 50 ký tự` },
         ],
         DestinationId: [
             { type: 'required', message: MessageConstants.REQUIRED_ERROR_MSG },
@@ -46,6 +48,9 @@ export class PackagesDetailComponent implements OnInit {
         DateCount: [
             { type: 'required', message: MessageConstants.REQUIRED_ERROR_MSG },
         ],
+        TravelGuideIdss: [
+            { type: 'required', message: MessageConstants.REQUIRED_ERROR_MSG },
+        ],
     };
 
     get formControls() {
@@ -55,17 +60,26 @@ export class PackagesDetailComponent implements OnInit {
     constructor(
         private fb: FormBuilder,
         private utilService: UtilityService,
-        private destinationService: DestinationService
+        private destinationService: DestinationService,
+        private usersService: UsersService
     ) { }
 
     ngOnInit() {
         this.buildForm();
-        this.getDestinations();
+        this.getOptions();
     }
-    getDestinations() {
+    getOptions() {
         this.destinationService.getAll()
             .subscribe(res => {
                 this.destinationOptions = res.map(x => new DropDownItem(x.Name, x.Id));
+            });
+        this.usersService.getAll()
+            .subscribe(res => {
+                res.forEach(x => {
+                    if (x.Kind == eUserKind.TravelGuide) {
+                        this.travelGuideOptions.push(new DropDownItem(x.UserName, x.Id));
+                    }
+                });
             });
     }
     buildForm() {
@@ -82,6 +96,7 @@ export class PackagesDetailComponent implements OnInit {
             People: [null],
             Price: [null, Validators.required],
             Discount: [null],
+            TravelGuideIdss: [null],
         });
         if (this.item) this.form.patchValue(this.item);
         if (this.mode == 'view') this.form.disable();

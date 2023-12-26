@@ -12,7 +12,7 @@
                         [style]="{ width: '100%' }"
                     />
                     <label for="tenTaiLieu"
-                        >Mã <span class="required">*</span></label
+                        >Code <span class="required">*</span></label
                     >
                 </span>
                 <app-validation-message
@@ -31,7 +31,7 @@
                         [style]="{ width: '100%' }"
                     />
                     <label for="tenTaiLieu"
-                        >Tên <span class="required">*</span></label
+                        >Name <span class="required">*</span></label
                     >
                 </span>
                 <app-validation-message
@@ -54,7 +54,7 @@
                         filterBy="text"
                         styleClass="w-full"
                     ></p-dropdown>
-                    <label>Địa điểm <span class="required">*</span></label>
+                    <label>Destination <span class="required">*</span></label>
                 </span>
                 <app-validation-message
                     [entityControl]="formControls['DestinationId']"
@@ -73,7 +73,7 @@
                         inputId="StartDate"
                     ></p-calendar>
                     <label
-                        >Ngày Ngày khởi hành
+                        >Ngày Start Date
                         <span class="required">*</span></label
                     >
                     <app-validation-message
@@ -93,7 +93,7 @@
                         inputId="integeronly"
                         [min]="1"
                     ></p-inputNumber>
-                    <label>Ngày Số ngày <span class="required">*</span></label>
+                    <label>Ngày Number of date <span class="required">*</span></label>
                     <app-validation-message
                         [entityControl]="formControls['DateCount']"
                         [validationMessages]="validationMessages.DateCount"
@@ -111,7 +111,7 @@
                         inputId="integeronly"
                         [min]="1"
                     ></p-inputNumber>
-                    <label>Số người <span class="required">*</span></label>
+                    <label>Number of people <span class="required">*</span></label>
                     <app-validation-message
                         [entityControl]="formControls['People']"
                         [validationMessages]="validationMessages.People"
@@ -129,7 +129,7 @@
                         mode="decimal"
                         [minFractionDigits]="2"
                     ></p-inputNumber>
-                    <label>Giá gói <span class="required">*</span></label>
+                    <label>Price <span class="required">*</span></label>
                     <app-validation-message
                         [entityControl]="formControls['Price']"
                         [validationMessages]="validationMessages.Price"
@@ -148,7 +148,32 @@
                         [minFractionDigits]="2"
                         [max]="100"
                     ></p-inputNumber>
-                    <label>Khuyến mãi (%)</label>
+                    <label>Discount (%)</label>
+                </span>
+            </div>
+
+            <!-- ----------------------------TravelGuideIdss---------------------------=----------------------------- -->
+            <div class="field col-12 md:col-6">
+                <span class="p-float-label">
+                    <p-multiSelect
+                        [options]="travelGuideOptions"
+                        formControlName="TravelGuideIdss"
+                        [filter]="true"
+                        optionLabel="text"
+                    ></p-multiSelect>
+                    <p-multiSelect
+                        formControlName="TravelGuideIdss"
+                        [options]="travelGuideOptions"
+                        optionLabel="text"
+                        optionValue="value"
+                        [filter]="true"
+                        filterBy="text"
+                        [showClear]="true"
+                        [style]="{ width: '100%' }"
+                        appendTo="body"
+                    >
+                    </p-multiSelect>
+                    <label>Travel guides</label>
                 </span>
             </div>
             <!-- ---------------------------------------------------------------------------------- -->
