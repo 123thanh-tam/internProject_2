@@ -14,7 +14,7 @@ export class UsersDto {
         this.Email = email;
         this.Phone = phone;
     }
-    Id: string;
+    Id?: string;
     Name: string;
     Kind: string;
     Email: string;

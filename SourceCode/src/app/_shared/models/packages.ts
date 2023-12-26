@@ -10,7 +10,9 @@ export class PackagesDto {
         discount: number,
         id: string = ''
     ) {
-        if (id) { this.Id = id }
+        if (id) {
+            this.Id = id;
+        }
         this.Code = code;
         this.Name = name;
         this.DestinationId = desId;

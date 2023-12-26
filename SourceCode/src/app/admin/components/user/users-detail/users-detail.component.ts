@@ -27,7 +27,7 @@ export class UsersDetailComponent implements OnInit {
             { type: 'required', message: MessageConstants.REQUIRED_ERROR_MSG },
             { type: 'maxlength', message: `Tên không quá 100 ký tự` },
         ],
-        UsersId: [
+        Id: [
             { type: 'required', message: MessageConstants.REQUIRED_ERROR_MSG },
         ],
         Email: [
@@ -73,7 +73,7 @@ export class UsersDetailComponent implements OnInit {
     }
     buildForm() {
         this.form = this.fb.group({
-            UsersId: [null, Validators.required],
+            Id: [null, Validators.required],
             Name: [null, [Validators.required, Validators.maxLength(100)]],
             Kind: [null, Validators.required],
             Email: [

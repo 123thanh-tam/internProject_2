@@ -12,12 +12,12 @@
                       [style]="{ width: '100%' }"
                   />
                   <label for="tenTaiLieu"
-                      >Mã <span class="required">*</span></label
+                      >Code <span class="required">*</span></label
                   >
               </span>
               <app-validation-message
-                  [entityControl]="formControls['UsersId']"
-                  [validationMessages]="validationMessages.UsersId"
+                  [entityControl]="formControls['Id']"
+                  [validationMessages]="validationMessages.Id"
               >
               </app-validation-message>
           </div>
@@ -31,7 +31,7 @@
                       [style]="{ width: '100%' }"
                   />
                   <label for="tenTaiLieu"
-                      >Tên <span class="required">*</span></label
+                      >Name <span class="required">*</span></label
                   >
               </span>
               <app-validation-message
@@ -54,7 +54,7 @@
                       filterBy="text"
                       styleClass="w-full"
                   ></p-dropdown>
-                  <label>Kiểu người dùng <span class="required">*</span></label>
+                  <label>Type of user <span class="required">*</span></label>
               </span>
               <app-validation-message
                   [entityControl]="formControls['Kind']"
@@ -93,7 +93,7 @@
               [style]="{ width: '100%' }"
           />
           <label for="tenTaiLieu"
-              >So dien thoai <span class="required">*</span></label
+              >Phone number <span class="required">*</span></label
           >
       </span>
       <app-validation-message

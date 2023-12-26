@@ -1,10 +1,9 @@
 export class Tours {
     constructor(
         id: string,
-        name: string,
-        nameDes: string,
-        price: number,
-        discount: number
+        packageId: string,
+        customerId: string,
+        status: string
     ) {}
     Id: string;
     Name: string;
