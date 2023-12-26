@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { PackagesService } from 'src/app/_shared/services';
 @Component({
     selector: 'app-portal-layout',
     templateUrl: './layout.component.html',
@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LayoutComponent implements OnInit {
     constructor(
+        private packageService: PackagesService
     ) { }
     ngOnInit() {
 
