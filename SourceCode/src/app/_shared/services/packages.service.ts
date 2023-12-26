@@ -36,7 +36,6 @@ export class PackagesService {
                         x['People'],
                         x['Price'],
                         x['Discount'],
-                        x['TravelGuideIdss'],
                         x['Id']
                     )
             )
@@ -59,7 +58,6 @@ export class PackagesService {
                             x['People'],
                             x['Price'],
                             x['Discount'],
-                            x['TravelGuideIdss'],
                             x['Id']
                         )
                 );

@@ -8,7 +8,6 @@ export class PackagesDto {
         people: Number,
         price: Number,
         discount: number,
-        travelGuideIdss: string[],
         id: string = ''
     ) {
         if (id) {
@@ -21,7 +20,6 @@ export class PackagesDto {
         this.DateCount = dateCount;
         this.People = people;
         this.Price = price;
-        this.TravelGuideIdss = travelGuideIdss && travelGuideIdss.length > 0 ? travelGuideIdss : [];
         this.Discount = discount;
     }
     Id: string;
@@ -33,5 +31,4 @@ export class PackagesDto {
     People: Number;
     Price: Number;
     Discount: number;
-    TravelGuideIdss: string[];
 }

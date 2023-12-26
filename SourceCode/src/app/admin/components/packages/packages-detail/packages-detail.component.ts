@@ -22,7 +22,6 @@ export class PackagesDetailComponent implements OnInit {
     form: FormGroup;
     title: string;
     destinationOptions: DropDownItem[];
-    travelGuideOptions: DropDownItem[] = [];
 
     validationMessages = {
         Name: [
@@ -60,8 +59,7 @@ export class PackagesDetailComponent implements OnInit {
     constructor(
         private fb: FormBuilder,
         private utilService: UtilityService,
-        private destinationService: DestinationService,
-        private usersService: UsersService
+        private destinationService: DestinationService
     ) { }
 
     ngOnInit() {
@@ -73,14 +71,7 @@ export class PackagesDetailComponent implements OnInit {
             .subscribe(res => {
                 this.destinationOptions = res.map(x => new DropDownItem(x.Name, x.Id));
             });
-        this.usersService.getAll()
-            .subscribe(res => {
-                res.forEach(x => {
-                    if (x.Kind == eUserKind.TravelGuide) {
-                        this.travelGuideOptions.push(new DropDownItem(x.UserName, x.Id));
-                    }
-                });
-            });
+
     }
     buildForm() {
         this.form = this.fb.group({
@@ -96,7 +87,6 @@ export class PackagesDetailComponent implements OnInit {
             People: [null],
             Price: [null, Validators.required],
             Discount: [null],
-            TravelGuideIdss: [null],
         });
         if (this.item) this.form.patchValue(this.item);
         if (this.mode == 'view') this.form.disable();
