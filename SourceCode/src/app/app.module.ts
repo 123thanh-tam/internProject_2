@@ -38,9 +38,9 @@ const components = [AboutComponent];
     imports: [
         AppRoutingModule,
         AdminLayoutModule,
-        portalLayoutModule,
         ConfirmDialogModule,
         ToastModule,
+        portalLayoutModule,
         AngularFireModule.initializeApp(environment.firebaseConfig),
         // provideFirebaseApp(() => {
         //     return initializeApp(environment.firebase);
