@@ -29,9 +29,6 @@ export class PackagesService {
                         x['Code'],
                         x['Name'],
                         x['DestinationId'],
-                        this.utilityService.convertTimestampToDate(
-                            x['StartDate']
-                        ),
                         x['DateCount'],
                         x['People'],
                         x['Price'],
@@ -51,9 +48,6 @@ export class PackagesService {
                             x['Code'],
                             x['Name'],
                             x['DestinationId'],
-                            this.utilityService.convertTimestampToDate(
-                                x['StartDate']
-                            ),
                             x['DateCount'],
                             x['People'],
                             x['Price'],

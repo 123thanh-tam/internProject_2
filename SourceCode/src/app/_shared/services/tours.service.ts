@@ -10,25 +10,30 @@ import {
 } from 'firebase/firestore';
 import { map, tap } from 'rxjs';
 import { ToursDto } from '../models/tours';
+import { UtilityService } from './utility.service';
 @Injectable({
     providedIn: 'root',
 })
 export class ToursService {
-    constructor(private fs: Firestore) {}
+    constructor(private fs: Firestore,
+        private utilityService: UtilityService) { }
     get(id: string) {
         let docRef = doc(this.fs, 'tours/' + id);
         return docData(docRef, { idField: 'Id' }).pipe(
             tap(
                 (x: DocumentData) =>
                     new ToursDto(
-                        x['Id'],
-                        x['Code'],
                         x['CustomerId'],
+                        x['DestinationId'],
                         x['PackageId'],
                         x['GuideId'],
-                        x['Status'],
                         x['Price'],
-                        x['Discount']
+                        x['Discount'],
+                        this.utilityService.convertTimestampToDate(
+                            x['StartDate']
+                        ),
+                        x['Description'],
+                        x['Id'],
                     )
             )
         );
@@ -40,14 +45,17 @@ export class ToursService {
                 return data.map(
                     (x) =>
                         new ToursDto(
-                            x['Id'],
-                            x['Code'],
                             x['CustomerId'],
+                            x['DestinationId'],
                             x['PackageId'],
                             x['GuideId'],
-                            x['Status'],
                             x['Price'],
-                            x['Discount']
+                            x['Discount'],
+                            this.utilityService.convertTimestampToDate(
+                                x['StartDate']
+                            ),
+                            x['Description'],
+                            x['Id'],
                         )
                 );
             })

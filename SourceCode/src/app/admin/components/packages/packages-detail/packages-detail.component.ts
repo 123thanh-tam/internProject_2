@@ -41,9 +41,6 @@ export class PackagesDetailComponent implements OnInit {
         Price: [
             { type: 'required', message: MessageConstants.REQUIRED_ERROR_MSG },
         ],
-        StartDate: [
-            { type: 'required', message: MessageConstants.REQUIRED_ERROR_MSG },
-        ],
         DateCount: [
             { type: 'required', message: MessageConstants.REQUIRED_ERROR_MSG },
         ],
@@ -82,7 +79,6 @@ export class PackagesDetailComponent implements OnInit {
                 [Validators.required, Validators.maxLength(100)],
             ],
             DestinationId: [null, Validators.required],
-            StartDate: [null, Validators.required],
             DateCount: [null, Validators.required],
             People: [null],
             Price: [null, Validators.required],

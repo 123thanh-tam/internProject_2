@@ -106,7 +106,7 @@ export class UsersDetailComponent implements OnInit {
         this.utilService.markAllControlsAsDirty([this.form]);
         if (this.form.invalid) return;
         let dto = this.form.value as UsersDto;
-        dto.Avatar = this.item.Avatar;
+        dto.Avatar = this.mode == 'update' && this.item?.Avatar ? this.item?.Avatar : null;
         this.submitForm.emit(dto);
     }
     closeModal() {

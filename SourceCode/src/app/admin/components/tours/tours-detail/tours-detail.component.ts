@@ -1,10 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MessageConstants } from 'src/app/_shared/consts';
+import { MessageConstants, eUserKind } from 'src/app/_shared/consts';
 import { DestinationService, UtilityService } from 'src/app/_shared/services';
 // import { PackagesDto as PackagesDto } from 'src/app/_shared/models/packages';
 import { ToursDto } from 'src/app/_shared/models/tours';
-import { DropDownItem } from 'src/app/_shared/models';
+import { DestinationDto, DropDownItem, PackagesDto, UsersDto } from 'src/app/_shared/models';
 import { PackagesService } from 'src/app/_shared/services';
 import { UsersService } from 'src/app/_shared/services/users.service';
 import { ToursService } from 'src/app/_shared/services/tours.service';
@@ -17,33 +17,46 @@ export class ToursDetailComponent implements OnInit {
     @Input() mode: 'create' | 'update' | 'view' = 'view';
     @Input() id: string | undefined;
     @Input() item: ToursDto | undefined;
+    @Input() destinations: DestinationDto[] = [];
+    @Input() users: UsersDto[] = [];
+    @Input() packages: PackagesDto[] = [];
 
     @Output() submitForm: EventEmitter<any> = new EventEmitter<any>();
     @Output() close: EventEmitter<any> = new EventEmitter();
 
     form: FormGroup;
     title: string;
-    destinationsOptions: DropDownItem[];
-    priceOptions: DropDownItem[];
-    discountOptions: DropDownItem[];
-    guidesOptions: DropDownItem[];
+
+    customerOptions: DropDownItem[] = [];
+    destinationOptions: DropDownItem[] = [];
+    packageOptions: DropDownItem[] = [];
+    guidesOptions: DropDownItem[] = [];
+
     validationMessages = {
-        Code: [
-            { type: 'required', message: MessageConstants.REQUIRED_ERROR_MSG },
-            { type: 'maxlength', message: `Name không quá 50 ký tự` },
-        ],
-        NameCustomer: [
+        CustomerId: [
             { type: 'required', message: MessageConstants.REQUIRED_ERROR_MSG },
         ],
-        NameGuide: [
+        StartDate: [
             { type: 'required', message: MessageConstants.REQUIRED_ERROR_MSG },
         ],
-        NameDestination: [
+        DestinationId: [
+            { type: 'required', message: MessageConstants.REQUIRED_ERROR_MSG },
+        ],
+        GuideId: [
+            { type: 'required', message: MessageConstants.REQUIRED_ERROR_MSG },
+        ],
+        PackageId: [
             { type: 'required', message: MessageConstants.REQUIRED_ERROR_MSG },
         ],
         Price: [
             { type: 'required', message: MessageConstants.REQUIRED_ERROR_MSG },
         ],
+        Description: [
+            {
+                type: 'maxlength',
+                message: `Mô tả không quá 100 ký tự`,
+            },
+        ]
     };
 
     get formControls() {
@@ -57,56 +70,60 @@ export class ToursDetailComponent implements OnInit {
         private destinationsService: DestinationService,
         private usersService: UsersService,
         private packagesService: PackagesService
-    ) {}
+    ) { }
 
     ngOnInit() {
         this.buildForm();
-        this.getDestinations();
-        this.getDiscount();
-        this.getGuide();
-        this.getPrice();
+        this.setOptions();
     }
-    getDestinations() {
-        this.destinationsService.getAll().subscribe((res) => {
-            this.destinationsOptions = res.map(
-                (x) => new DropDownItem(x.Name, x.Id)
-            );
+    setOptions() {
+        this.users.forEach(u => {
+            if (u.Kind == eUserKind.Customer) {
+                this.customerOptions.push(new DropDownItem(u.Name, u.Id));
+            }
+        });
+        this.destinations.forEach(d => {
+            this.destinationOptions.push(new DropDownItem(d.Name, d.Id));
         });
     }
-    getPrice() {
-        this.packagesService.getAll().subscribe((res) => {
-            this.priceOptions = res.map(
-                (x) => new DropDownItem(x.Price.toString(), x.DestinationId)
-            );
-        });
+
+    changeDestination() {
+        let desId = this.form.get('DestinationId').value;
+
+        // reset fpr, cpmtrpl
+        this.form.get('GuideId').reset();
+        this.form.get('PackageId').reset();
+        this.form.get('Price').reset();
+        this.form.get('Discount').reset();
+
+        this.packageOptions = this.packages
+            .filter(x => x.DestinationId == desId)
+            .map(p => new DropDownItem(p.Name, p.Id));
+
+        // destination has many guide
+        let activeGuides = this.destinations.find(d => d.Id == desId).TravelGuideIdss;
+        this.guidesOptions = this.users
+            .filter(x => activeGuides.includes(x.Id))
+            .map(p => new DropDownItem(p.Name, p.Id));
     }
-    getDiscount() {
-        this.packagesService.getAll().subscribe((res) => {
-            this.discountOptions = res.map(
-                (x) => new DropDownItem(x.Discount.toString(), x.DestinationId)
-            );
-        });
+    changePackage() {
+        let packId = this.form.get('PackageId').value;
+        let pack = this.findPack(packId);
+        this.form.get('Price').setValue(pack.Price);
+        this.form.get('Discount').setValue(pack.Discount);
     }
-    getGuide() {
-        this.usersService.getAll().subscribe((res) => {
-            this.guidesOptions = res.map(
-                (x) => new DropDownItem(x.Name, x.Kind ? 'guide' : null)
-            );
-        });
-    }
+
     buildForm() {
         this.form = this.fb.group({
             Id: [null],
-            Code: [null, [Validators.required, Validators.maxLength(50)]],
-            NameCustomer: [
-                null,
-                [Validators.required, Validators.maxLength(100)],
-            ],
-            NameDestination: [null, Validators.required],
-            NameGuide: [null, Validators.required],
-
+            CustomerId: [null, Validators.required],
+            StartDate: [null, Validators.required],
+            DestinationId: [null, Validators.required],
+            GuideId: [null, Validators.required],
+            PackageId: [null, Validators.required],
             Price: [null, Validators.required],
             Discount: [null],
+            Description: [null, [Validators.maxLength(100)]],
         });
         if (this.item) this.form.patchValue(this.item);
         if (this.mode == 'view') this.form.disable();
@@ -120,4 +137,14 @@ export class ToursDetailComponent implements OnInit {
     closeModal() {
         this.close.emit();
     }
+    findDes(id: string): DestinationDto {
+        return this.destinations.find((x) => x.Id == id);
+    }
+    findUser(id): UsersDto {
+        return this.users.find((x) => x.Id == id);
+    }
+    findPack(id: string): PackagesDto {
+        return this.packages.find((x) => x.Id == id);
+    }
 }
+

@@ -51,7 +51,6 @@
                         Name <p-sortIcon field="Name"></p-sortIcon>
                     </th>
                     <th pSortableColumn="Destination">Destination</th>
-                    <th pSortableColumn="StartDate">Start Date</th>
                     <th pSortableColumn="DateCount">Number of date</th>
                     <th pSortableColumn="People">Number of people</th>
                     <th pSortableColumn="Price">Price</th>
@@ -64,7 +63,6 @@
                     <td>{{ row.Code }}</td>
                     <td>{{ row.Name }}</td>
                     <td>{{ findDestination(row.DestinationId)?.Name }}</td>
-                    <td>{{ row.StartDate | date : "dd/MM/yyyy" }}</td>
                     <td>{{ row.DateCount }}</td>
                     <td>{{ row.People }}</td>
                     <td>{{ row.Price }}</td>

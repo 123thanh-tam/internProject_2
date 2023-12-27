@@ -62,27 +62,6 @@
                 >
                 </app-validation-message>
             </div>
-            <!-- ---------------------------------StartDate------------------------------------------------- -->
-            <div class="field col-12 md:col-6">
-                <span class="p-float-label">
-                    <p-calendar
-                        formControlName="StartDate"
-                        appendTo="body"
-                        dateFormat="dd/mm/yy"
-                        [showClear]="true"
-                        inputId="StartDate"
-                    ></p-calendar>
-                    <label
-                        >Ngày Start Date
-                        <span class="required">*</span></label
-                    >
-                    <app-validation-message
-                        [entityControl]="formControls['StartDate']"
-                        [validationMessages]="validationMessages.StartDate"
-                    >
-                    </app-validation-message>
-                </span>
-            </div>
             <!-- ---------------------------------DateCount------------------------------------------------- -->
             <div class="field col-12 md:col-6">
                 <span class="p-float-label">
