@@ -10,17 +10,31 @@ import { ToastModule } from 'primeng/toast';
 //@angular/fire
 import { AngularFireModule } from '@angular/fire/compat';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
-import { provideFirestore, getFirestore, connectFirestoreEmulator } from '@angular/fire/firestore';
-import { provideStorage, getStorage, connectStorageEmulator } from '@angular/fire/storage';
+import {
+    provideFirestore,
+    getFirestore,
+    connectFirestoreEmulator,
+} from '@angular/fire/firestore';
+import {
+    provideStorage,
+    getStorage,
+    connectStorageEmulator,
+} from '@angular/fire/storage';
 
 import { environment } from 'src/environments/environment';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { FileUploadService, NotificationService, UtilityService } from './_shared/services';
+import {
+    FileUploadService,
+    NotificationService,
+    UtilityService,
+} from './_shared/services';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpErrorInterceptorService } from './_shared/interceptors';
+import { AboutComponent } from './portal/components/about/about.component';
 
+const components = [AboutComponent];
 @NgModule({
-    declarations: [AppComponent, NotfoundComponent],
+    declarations: [AppComponent, NotfoundComponent, ...components],
     imports: [
         AppRoutingModule,
         AdminLayoutModule,
@@ -45,7 +59,6 @@ import { HttpErrorInterceptorService } from './_shared/interceptors';
             }
             return storage;
         }),
-
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
@@ -58,8 +71,8 @@ import { HttpErrorInterceptorService } from './_shared/interceptors';
         NotificationService,
         ConfirmationService,
         UtilityService,
-        FileUploadService
+        FileUploadService,
     ],
     bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
