@@ -4,15 +4,13 @@ import { RouterModule } from '@angular/router';
 import { find } from 'rxjs';
 import { PackagesService } from 'src/app/_shared/services';
 import { DestinationService } from 'src/app/_shared/services';
-// import { PackagesDto } from 'src/app/_shared/models';
+
 @Component({
-    selector: 'app-home',
-    standalone: true,
-    imports: [CommonModule, RouterModule],
-    templateUrl: './home.component.html',
-    styleUrls: ['./home.component.scss'],
+    selector: 'app-destinations',
+    templateUrl: './destinations.component.html',
+    styleUrls: ['./destinations.component.scss'],
 })
-export class HomeComponent implements OnInit {
+export class DestinationsComponent implements OnInit {
     constructor(
         private packageService: PackagesService,
         private destinationService: DestinationService

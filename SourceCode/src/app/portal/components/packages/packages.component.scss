@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+.des-imgOrigin{
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+	transition: all 1s;
+}
+.des-img:hover{
+	transform: scale(1.2);
+	transition: all 1s;
+}

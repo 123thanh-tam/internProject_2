@@ -1,0 +1,40 @@
+<div class="w-4/5 mt-24 mx-auto">
+  <h6 class="mt-24 text-center font-Nunito text-light-green  relative font-extrabold 
+  text-lg uppercase">packages</h6>
+  <p class="mt-3 text-5xl font-Nunito font-bold mb-9 text-center">Awesome Packages</p>
+  <div class=" grid grid-cols-3 gap-5">
+    <div *ngFor="let package of packages">
+      <div class="pb-7 shadow-shadow-service h-500px mb-10">
+        <div class="overflow-hidden h-60" *ngFor="let img of findDestination(package.DestinationId)?.Images">
+          <div class="flex justify-center items-center">
+            <img [src]="img.Url" class="w-full h-60 des-img des-imgOrigin " alt="">
+          </div>
+        </div>
+        <div class="grid grid-cols-3 text-center text-gray-600 pt-3">
+          <p class="pt-2 border-r-default border-gray-400"><i class="text-light-green pr-1 pi pi-map-marker"></i>{{package.Name}}
+          </p>
+          <p class="pt-2 border-r-default border-gray-400"><i class="text-light-green pr-1 pi pi-calendar"></i>{{package.DateCount}} days</p>
+          <p class="pt-2"> <i class="text-light-green pr-1 pi pi-user"></i>{{package.People}}</p>
+        </div>
+        <div class="text-center">
+          <h3 class="mt-3 text-3xl font-Nunito font-bold">{{package.Price}}</h3>
+          <div class="flex justify-center my-3">
+            <i class="pi pi-star-fill text-light-green pr-1"></i>
+            <i class="pi pi-star-fill text-light-green pr-1"></i>
+            <i class="pi pi-star-fill text-light-green pr-1"></i>
+            <i class="pi pi-star-fill text-light-green pr-1"></i>
+            <i class="pi pi-star-fill text-light-green pr-1"></i>
+          </div>
+          <div class="text-gray-600 mb-3 mx-5">{{findDestination(package.DestinationId)?.Description}}</div>
+          <div class="text-sm text-white font-Nunito font-bold w-3/5 m-auto flex">
+            <div
+              class="px-4 border-r-default rounded-tl-full rounded-bl-full bg-light-green  hover:bg-lime-500 border-white">
+              <button class=" py-2">Read More</button></div>
+            <div class="px-4 rounded-tr-full rounded-br-full bg-light-green  hover:bg-lime-500"> <button class="py-2">Book
+                Now</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>

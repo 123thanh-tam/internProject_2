@@ -5,7 +5,8 @@ import { AppLayoutComponent as AdminLayoutComponent } from './admin/layout/app.l
 import { HomeComponent } from './portal/components/home/home.component';
 import { LayoutComponent } from './portal/layout/layout.component';
 import { AboutComponent } from './portal/components/about/about.component';
-
+import { DestinationsComponent } from './portal/components/destinations/destinations.component';
+import { PackagesComponent } from './portal/components/packages/packages.component';
 @NgModule({
     imports: [
         RouterModule.forRoot(
@@ -21,6 +22,14 @@ import { AboutComponent } from './portal/components/about/about.component';
                         {
                             path: 'about',
                             component: AboutComponent,
+                        },
+                        {
+                            path: 'destinations',
+                            component: DestinationsComponent,
+                        },
+                        {
+                            path: 'packages',
+                            component: PackagesComponent,
                         },
                     ],
                 },
@@ -92,4 +101,4 @@ import { AboutComponent } from './portal/components/about/about.component';
     ],
     exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

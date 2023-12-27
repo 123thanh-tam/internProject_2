@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+.des-imgOrigin{
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+	transition: all 1s;
+}
+.des-img:hover{
+	transform: scale(1.2);
+	transition: all 1s;
+}
+.des-img1{
+	background-image: url(https://hoteliermaldives.com/wp-content/uploads/2022/05/hassan-nizam-q0AR0jBiLtU-unsplash-scaled.jpg);
+}
+.des-img3{
+	background-image: url(https://halongviolet.com/media/articles/src/a106-hanoi-halong-cruise-packages-3.jpg?t=1589174829);
+
+}
+
+.des-img2{
+	background-image: url(https://images.pexels.com/photos/2412718/pexels-photo-2412718.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500);
+
+}
+
+.des-img4{
+	background-image: url(https://images.pexels.com/photos/2674066/pexels-photo-2674066.jpeg?auto=compress&cs=tinysrgb&h=627&fit=crop&w=1200);
+
+}
