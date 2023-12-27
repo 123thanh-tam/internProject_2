@@ -7,6 +7,7 @@ import { LayoutComponent } from './portal/layout/layout.component';
 import { AboutComponent } from './portal/components/about/about.component';
 import { DestinationsComponent } from './portal/components/destinations/destinations.component';
 import { PackagesComponent } from './portal/components/packages/packages.component';
+import { TravelGuideComponent } from './portal/components/travel-guide/travel-guide.component';
 @NgModule({
     imports: [
         RouterModule.forRoot(
@@ -30,6 +31,10 @@ import { PackagesComponent } from './portal/components/packages/packages.compone
                         {
                             path: 'packages',
                             component: PackagesComponent,
+                        },
+                        {
+                            path: 'travel-guides',
+                            component: TravelGuideComponent,
                         },
                     ],
                 },

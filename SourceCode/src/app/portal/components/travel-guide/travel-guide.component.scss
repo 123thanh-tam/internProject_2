@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+.des-imgOrigin{
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+	transition: all 1s;
+}
+.des-img:hover{
+	transform: scale(1.2);
+	transition: all 1s;
+}
+.img-guide1{
+	background-image: url(https://i.ibb.co/zXTx5Qx/406812767-692727912927862-8056846477316110588-n.jpg);
+}
+.img-guide2{
+	background-image: url(https://i.ibb.co/7y8MX1n/86328675-ac05-43ec-ac34-6dabe0871df5.jpg);
+}
+.img-guide3{
+	background-image: url(https://i.ibb.co/rM50hLD/c96a34d3-3fcf-4c91-b28e-27d13dc0224b.jpg);
+}
+.img-guide4{
+	background-image: url(https://i.ibb.co/7y8MX1n/86328675-ac05-43ec-ac34-6dabe0871df5.jpg);
+}
+.guide-item:hover .img-guide{
+	transform: scale(1.2);
+	transition: all 1s;
+}
