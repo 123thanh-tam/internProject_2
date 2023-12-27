@@ -3,7 +3,6 @@ export class PackagesDto {
         code: string,
         name: string,
         desId: string,
-        sDate: Date,
         dateCount: number,
         people: Number,
         price: Number,
@@ -16,7 +15,6 @@ export class PackagesDto {
         this.Code = code;
         this.Name = name;
         this.DestinationId = desId;
-        this.StartDate = sDate;
         this.DateCount = dateCount;
         this.People = people;
         this.Price = price;
@@ -26,7 +24,6 @@ export class PackagesDto {
     Code: string;
     Name: string;
     DestinationId: string;
-    StartDate: Date;
     DateCount: number;
     People: Number;
     Price: Number;

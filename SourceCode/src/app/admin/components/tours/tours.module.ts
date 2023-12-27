@@ -19,6 +19,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { ToursDetailComponent } from './tours-detail/tours-detail.component';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { ImageModule } from 'primeng/image';
+import { CalendarModule } from 'primeng/calendar';
 @NgModule({
     imports: [
         CommonModule,
@@ -39,7 +40,9 @@ import { ImageModule } from 'primeng/image';
         DialogModule,
         DropdownModule,
         ProgressBarModule,
-        ImageModule
+        ImageModule,
+        DropdownModule,
+        CalendarModule
     ],
     declarations: [ToursComponent, ToursDetailComponent],
 })

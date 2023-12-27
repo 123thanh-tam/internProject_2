@@ -40,10 +40,7 @@ export class DestinationDetailComponent implements OnInit {
                 type: 'maxlength',
                 message: `Mô tả không quá 100 ký tự`,
             },
-        ],
-        Id: [
-            { type: 'required', message: MessageConstants.REQUIRED_ERROR_MSG },
-        ],
+        ]
     };
 
     get formControls() {
@@ -65,7 +62,7 @@ export class DestinationDetailComponent implements OnInit {
             .subscribe(res => {
                 res.forEach(x => {
                     if (x.Kind == eUserKind.TravelGuide) {
-                        this.travelGuideOptions.push(new DropDownItem(x.UserName, x.Id));
+                        this.travelGuideOptions.push(new DropDownItem(x.Name, x.Id));
                     }
                 });
                 this.buildForm();

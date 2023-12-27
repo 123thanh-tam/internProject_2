@@ -10,13 +10,14 @@ import { ConfirmationService } from 'primeng/api';
 import { MessageConstants, eUserKind } from 'src/app/_shared/consts';
 import { ToursDto } from 'src/app/_shared/models/tours';
 import { ToursService } from 'src/app/_shared/services/tours.service';
+import { forkJoin } from 'rxjs';
 @Component({
     selector: 'app-tours',
     templateUrl: './tours.component.html',
     styleUrls: ['./tours.component.css'],
 })
 export class ToursComponent implements OnInit {
-    items: ToursDto[] = [];
+    tours: ToursDto[] = [];
     loading: boolean = false;
     destinations: DestinationDto[] = [];
     users: UsersDto[] = [];
@@ -33,34 +34,26 @@ export class ToursComponent implements OnInit {
         private destinationService: DestinationService,
         private toursService: ToursService,
         private usersService: UsersService
-    ) {}
+    ) { }
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.getData();
+    }
     getData() {
         this.loading = true;
-        this.toursService.getAll().subscribe((res) => {
-            this.items = res;
+        this.toursService.getAll().subscribe(res => {
+            this.tours = res;
             this.loading = false;
         });
-    }
-
-    getDestinations() {
-        this.loading = true;
-        this.destinationService.getAll().subscribe((res) => {
+        this.destinationService.getAll().subscribe(res => {
             this.destinations = res;
             this.loading = false;
         });
-    }
-    getPackages() {
-        this.loading = true;
-        this.packagesService.getAll().subscribe((res) => {
+        this.packagesService.getAll().subscribe(res => {
             this.packages = res;
             this.loading = false;
         });
-    }
-    getUsers() {
-        this.loading = true;
-        this.usersService.getAll().subscribe((res) => {
+        this.usersService.getAll().subscribe(res => {
             this.users = res;
             this.loading = false;
         });
@@ -89,6 +82,7 @@ export class ToursComponent implements OnInit {
                     MessageConstants.CREATED_OK_MSG
                 );
                 this.closeDialog();
+                this.getData();
                 this.loading = false;
             });
         } else if (this.dialogMode == 'update') {
@@ -97,6 +91,7 @@ export class ToursComponent implements OnInit {
                     MessageConstants.UPDATED_OK_MSG
                 );
                 this.closeDialog();
+                this.getData();
                 this.loading = false;
             });
         }
@@ -133,16 +128,13 @@ export class ToursComponent implements OnInit {
             },
         });
     }
-    findDestination(id: string) {
+    findDes(id: string): DestinationDto {
         return this.destinations.find((x) => x.Id == id);
     }
-    findGuide(kind: eUserKind) {
-        return this.users.find((x) => x.Kind == kind);
+    findUser(id): UsersDto {
+        return this.users.find((x) => x.Id == id);
     }
-    findPrice(id: string) {
-        return this.packages.find((x) => x.DestinationId == id);
-    }
-    findDiscount(id: string) {
-        return this.packages.find((x) => x.DestinationId == id);
+    findPack(id: string): PackagesDto {
+        return this.packages.find((x) => x.Id == id);
     }
 }

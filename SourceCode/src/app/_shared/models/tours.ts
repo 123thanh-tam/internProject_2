@@ -2,32 +2,35 @@ import { disableCursor } from '@fullcalendar/core/internal';
 
 export class ToursDto {
     constructor(
-        id: string,
-        code: string,
         customerId: string,
+        destinationId: string,
         packageId: string,
         guideId: string,
-        status: string,
         price: Number,
-        discount: Number
+        discount: Number,
+        startDate: Date,
+        description: string,
+        id: string = null
     ) {
         if (id) {
             this.Id = id;
         }
-        this.Code = code;
         this.CustomerId = customerId;
+        this.DestinationId = destinationId;
         this.PackageId = packageId;
         this.GuideId = guideId;
-        this.Status = status;
         this.Price = price;
         this.Discount = discount;
+        this.StartDate = startDate;
+        this.Description = description;
     }
     Id: string;
-    Code: string;
-    PackageId: string;
     CustomerId: string;
+    DestinationId: string;
+    PackageId: string;
     GuideId: string;
-    Status: string;
     Price: Number;
     Discount: Number;
+    StartDate: Date;
+    Description: string;
 }
