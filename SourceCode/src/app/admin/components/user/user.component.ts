@@ -6,7 +6,6 @@ import { MessageConstants } from 'src/app/_shared/consts';
 // import { PackagesDto } from 'src/app/_shared/models/packages';
 import { UsersDto } from 'src/app/_shared/models';
 import { UsersService } from 'src/app/_shared/services/users.service';
-import { KindConstants } from 'src/app/_shared/consts';
 @Component({
     selector: 'app-user',
     templateUrl: './user.component.html',

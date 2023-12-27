@@ -4,6 +4,7 @@ import { NotfoundComponent } from './notfound/notfound.component';
 import { AppLayoutComponent as AdminLayoutComponent } from './admin/layout/app.layout.component';
 import { HomeComponent } from './portal/components/home/home.component';
 import { LayoutComponent } from './portal/layout/layout.component';
+import { ServicePageComponent } from './service-page/service-page.component';
 
 @NgModule({
     imports: [
@@ -12,7 +13,16 @@ import { LayoutComponent } from './portal/layout/layout.component';
                 {
                     path: '',
                     component: LayoutComponent,
-                    children: [{ path: '', component: HomeComponent }],
+                    children: [
+                        {
+                            path: '',
+                            component: HomeComponent,
+                        },
+                        {
+                            path: 'service',
+                            component: ServicePageComponent,
+                        },
+                    ],
                 },
                 {
                     path: 'admin',
