@@ -18,6 +18,10 @@ import { AboutComponent } from './portal/components/about/about.component';
                             path: '',
                             component: HomeComponent,
                         },
+                        {
+                            path: 'about',
+                            component: AboutComponent,
+                        },
                     ],
                 },
                 {
@@ -88,4 +92,4 @@ import { AboutComponent } from './portal/components/about/about.component';
     ],
     exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

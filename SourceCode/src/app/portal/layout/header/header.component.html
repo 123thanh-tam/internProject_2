@@ -1,46 +1,113 @@
-<div class=" bg-slate-950 text-gray-300">
-  <div class="header">
-    <div class="flex justify-between items-center">
-      <div>
-        <a class="mr-7 text-light cursor-pointer"><i class="pi pi-check-square mr-2"></i>123 Street, New York, USA</a>
-        <a class="mr-7 text-light cursor-pointer"><i class="pi pi-phone mr-2"></i>+012 345 6789</a>
-        <a class=" text-light  cursor-pointer"><i class="pi pi-paperclip mr-2
-          "></i>Our Email</a>
-      </div>
-      <div>
-        <div class="flex items-center" style="height: 45px;">
-          <a class="mr-8 border-default border-white w-8 h-8 rounded-full hover:bg-gray-200 hover:text-slate-950" href=""><i class="pl-2 pt-2 pi pi-twitter"></i></a>
-          <a class="mr-8  border-default border-white w-8 h-8 rounded-full hover:bg-gray-200 hover:text-slate-950" href=""><i class="pl-2 pt-2 pi pi-facebook"></i></a>
-          <a class="mr-8  border-default border-white w-8 h-8 rounded-full hover:bg-gray-200 hover:text-slate-950" href=""><i class="pl-2 pt-2 pi pi-linkedin"></i></a>
-          <a class="mr-8  border-default border-white w-8 h-8 rounded-full hover:bg-gray-200 hover:text-slate-950" href=""><i class="pl-2 pt-2 pi pi-instagram"></i></a>
-          <a class=" border-default border-white w-8 h-8 rounded-full hover:bg-gray-200 hover:text-slate-950" href=""><i class="pl-2 pt-2 pi pi-youtube"></i></a>
-      </div>
-      </div>
+<div class="bg-slate-950 text-gray-300">
+    <div class="header">
+        <div class="flex justify-between items-center">
+            <div>
+                <a class="mr-7 text-light cursor-pointer"
+                    ><i class="pi pi-check-square mr-2"></i>123 Street, New
+                    York, USA</a
+                >
+                <a class="mr-7 text-light cursor-pointer"
+                    ><i class="pi pi-phone mr-2"></i>+012 345 6789</a
+                >
+                <a class="text-light cursor-pointer"
+                    ><i class="pi pi-paperclip mr-2"></i>Our Email</a
+                >
+            </div>
+            <div>
+                <div class="flex items-center" style="height: 45px">
+                    <a
+                        class="mr-8 border-default border-white w-8 h-8 rounded-full hover:bg-gray-200 hover:text-slate-950"
+                        href=""
+                        ><i class="pl-2 pt-2 pi pi-twitter"></i
+                    ></a>
+                    <a
+                        class="mr-8 border-default border-white w-8 h-8 rounded-full hover:bg-gray-200 hover:text-slate-950"
+                        href=""
+                        ><i class="pl-2 pt-2 pi pi-facebook"></i
+                    ></a>
+                    <a
+                        class="mr-8 border-default border-white w-8 h-8 rounded-full hover:bg-gray-200 hover:text-slate-950"
+                        href=""
+                        ><i class="pl-2 pt-2 pi pi-linkedin"></i
+                    ></a>
+                    <a
+                        class="mr-8 border-default border-white w-8 h-8 rounded-full hover:bg-gray-200 hover:text-slate-950"
+                        href=""
+                        ><i class="pl-2 pt-2 pi pi-instagram"></i
+                    ></a>
+                    <a
+                        class="border-default border-white w-8 h-8 rounded-full hover:bg-gray-200 hover:text-slate-950"
+                        href=""
+                        ><i class="pl-2 pt-2 pi pi-youtube"></i
+                    ></a>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 <div class="bg-header relative pb-28">
-  <div class="navHeader mx-auto pt-5 flex justify-between">
-    <div class="flex relative">
-      <i class="pi pi-map-marker text-lime-300 text-3xl font-semibold "></i>
-      <span class="nameBrand font-Nunito text-lime-300 text-4xl font-semibold">Tourist</span>
+    <div class="navHeader mx-auto pt-5 flex justify-between">
+        <div class="flex relative">
+            <i
+                class="pi pi-map-marker text-lime-300 text-3xl font-semibold"
+            ></i>
+            <span
+                class="nameBrand font-Nunito text-lime-300 text-4xl font-semibold"
+                >Tourist</span
+            >
+        </div>
+        <div class="relative flex items-center">
+            <a
+                href="#"
+                class="nav-item nav-link active text-white font-bold text-lg font-Nunito mr-4"
+                ><p class="hover:text-light-green">Home</p></a
+            >
+            <a
+                [routerLink]="['about']"
+                class="nav-item nav-link text-white font-bold text-lg font-Nunito mr-4 hover:text-light-green"
+                ><p class="hover:text-light-green">About</p></a
+            >
+            <a
+                href="#"
+                class="nav-item nav-link text-white font-bold text-lg font-Nunito mr-4 hover:text-light-green"
+                ><p class="hover:text-light-green">Destinations</p></a
+            >
+            <a
+                href="#"
+                class="nav-item nav-link text-white font-bold text-lg font-Nunito mr-4 hover:text-light-green"
+                ><p class="hover:text-light-green">Packages</p></a
+            >
+            <a
+                href="#"
+                class="hover:bg-lime-500 px-6 py-2 rounded-3xl bg-light-green nav-item nav-link text-white font-bold text-md font-Nunito"
+                ><p>Register</p></a
+            >
+        </div>
     </div>
-    <div class="relative flex items-center">
-      <a href="#" class="nav-item nav-link active text-white font-bold text-lg font-Nunito mr-4 " ><p class="hover:text-light-green">Home</p></a>
-      <a href="about" class="nav-item nav-link text-white font-bold text-lg font-Nunito mr-4 hover:text-light-green" ><p class="hover:text-light-green">About</p></a>
-      <a href="#" class="nav-item nav-link text-white font-bold text-lg font-Nunito mr-4 hover:text-light-green" ><p class="hover:text-light-green">Destinations</p></a>
-      <a href="#" class="nav-item nav-link text-white font-bold text-lg font-Nunito mr-4 hover:text-light-green" ><p class="hover:text-light-green">Packages</p></a>
-      <a href="#" class=" hover:bg-lime-500 px-6 py-2 rounded-3xl bg-light-green nav-item nav-link text-white font-bold text-md font-Nunito"><p>Register</p></a>
+    <div class="h-2 w-full text-white mt-7"></div>
+    <div class="w-3/4 mx-auto mt-40 relative">
+        <p class="text-6xl text-white font-Nunito font-bold text-center">
+            Enjoy Your Vacation With Us
+        </p>
+        <p
+            class="my-5 text-center text-white font-Nunito text-2xl w-3/5 m-auto"
+        >
+            Lorem ipsum dolor sit amet. Tempore natus molestias officia fugit
+            iste delectus iure!
+        </p>
+        <div
+            class="flex justify-between px-4 py-2 bg-white rounded-full w-3/4 m-auto"
+        >
+            <input
+                type="text"
+                placeholder="Eg: Vietnam"
+                class="text-gray-500 outline-none w-full"
+            />
+            <a
+                href="#"
+                class="text-white px-5 py-2 hover:bg-lime-500 bg-light-green rounded-full font-bold font-Nunito"
+                >Search</a
+            >
+        </div>
     </div>
-  </div>
-  <div class="h-2 w-full text-white mt-7"></div>
-  <div class="w-3/4 mx-auto mt-40 relative">
-    <p class="text-6xl text-white font-Nunito font-bold text-center">Enjoy Your Vacation With Us</p>
-    <p class="my-5 text-center text-white font-Nunito text-2xl w-3/5 m-auto">Lorem ipsum dolor sit amet. Tempore natus molestias officia fugit iste delectus iure!
-    </p>
-    <div class="flex justify-between px-4 py-2 bg-white rounded-full w-3/4 m-auto">
-      <input type="text" placeholder="Eg: Vietnam" class="text-gray-500 outline-none w-full">
-      <a href="#" class="text-white px-5 py-2 hover:bg-lime-500 bg-light-green rounded-full font-bold font-Nunito">Search</a>
-    </div>
-  </div>
 </div>
