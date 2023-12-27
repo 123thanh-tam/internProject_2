@@ -4,7 +4,6 @@ import { NotfoundComponent } from './notfound/notfound.component';
 import { AppLayoutComponent as AdminLayoutComponent } from './admin/layout/app.layout.component';
 import { HomeComponent } from './portal/components/home/home.component';
 import { LayoutComponent } from './portal/layout/layout.component';
-import { ServicePageComponent } from './service-page/service-page.component';
 
 @NgModule({
     imports: [
@@ -17,10 +16,6 @@ import { ServicePageComponent } from './service-page/service-page.component';
                         {
                             path: '',
                             component: HomeComponent,
-                        },
-                        {
-                            path: 'service',
-                            component: ServicePageComponent,
                         },
                     ],
                 },

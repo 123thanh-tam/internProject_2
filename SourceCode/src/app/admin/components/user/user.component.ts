@@ -4,12 +4,13 @@ import { ConfirmationService } from 'primeng/api';
 import { MessageConstants, eUserKind } from 'src/app/_shared/consts';
 // import { DestinationDto } from 'src/app/_shared/models';
 // import { PackagesDto } from 'src/app/_shared/models/packages';
-import { CreateUsersDto, UpdateUsersDto, UsersDto } from 'src/app/_shared/models';
+import {
+    CreateUsersDto,
+    UpdateUsersDto,
+    UsersDto,
+} from 'src/app/_shared/models';
 import { UsersService } from 'src/app/_shared/services/users.service';
-<<<<<<< HEAD
-=======
 import { UserKindOptionss } from 'src/app/_shared/consts';
->>>>>>> d72094778688467e794f49726bac4bb8335782ee
 @Component({
     selector: 'app-user',
     templateUrl: './user.component.html',
@@ -29,7 +30,7 @@ export class UserComponent implements OnInit {
         private notificationService: NotificationService,
         private confirmationService: ConfirmationService,
         private usersService: UsersService
-    ) { }
+    ) {}
 
     ngOnInit() {
         this.getData();
@@ -75,7 +76,7 @@ export class UserComponent implements OnInit {
                 Kind: user.Kind,
                 Email: user.Email,
                 Phone: user.Phone,
-                Avatar: JSON.stringify(user.Avatar)
+                Avatar: JSON.stringify(user.Avatar),
             } as UpdateUsersDto;
             this.usersService.update(user.Id, updateDto).then((res) => {
                 this.notificationService.showSuccess(
@@ -118,7 +119,7 @@ export class UserComponent implements OnInit {
             },
         });
     }
-    findUserKind(kind: eUserKind){
-        return this.UserKindOptionss.find(x => x.value === kind).text;
+    findUserKind(kind: eUserKind) {
+        return this.UserKindOptionss.find((x) => x.value === kind).text;
     }
 }
