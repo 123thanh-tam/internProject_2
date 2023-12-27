@@ -1,8 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MessageConstants } from 'src/app/_shared/consts';
-import { DestinationDto as DestinationDto } from 'src/app/_shared/models';
+import { MessageConstants, eUserKind } from 'src/app/_shared/consts';
+import { DestinationDto as DestinationDto, DropDownItem } from 'src/app/_shared/models';
 import { UtilityService } from 'src/app/_shared/services';
+import { UsersService } from 'src/app/_shared/services/users.service';
 
 @Component({
     selector: 'app-destination-detail',
@@ -19,17 +20,18 @@ export class DestinationDetailComponent implements OnInit {
 
     form: FormGroup;
     title: string;
+    travelGuideOptions: DropDownItem[] = [];
 
     validationMessages = {
         Code: [
             { type: 'required', message: MessageConstants.REQUIRED_ERROR_MSG },
-            { type: 'maxlength', message: `Tên không quá 50 ký tự` },
+            { type: 'maxlength', message: `Name không quá 50 ký tự` },
         ],
         Name: [
             { type: 'required', message: MessageConstants.REQUIRED_ERROR_MSG },
             {
                 type: 'maxlength',
-                message: `Tên không quá 100 ký tự`,
+                message: `Name không quá 100 ký tự`,
             },
         ],
         Description: [
@@ -48,10 +50,26 @@ export class DestinationDetailComponent implements OnInit {
         return this.form.controls;
     }
 
-    constructor(private fb: FormBuilder, private utilService: UtilityService) { }
+    constructor(
+        private fb: FormBuilder,
+        private utilService: UtilityService,
+        private usersService: UsersService
+    ) { }
 
     ngOnInit() {
-        this.buildForm();
+        this.getOptions();
+    }
+
+    getOptions() {
+        this.usersService.getAll()
+            .subscribe(res => {
+                res.forEach(x => {
+                    if (x.Kind == eUserKind.TravelGuide) {
+                        this.travelGuideOptions.push(new DropDownItem(x.UserName, x.Id));
+                    }
+                });
+                this.buildForm();
+            });
     }
 
     buildForm() {
@@ -65,6 +83,7 @@ export class DestinationDetailComponent implements OnInit {
             ],
             Rating: [null],
             Images: [null],
+            TravelGuideIdss: [null],
         });
         if (this.item) this.form.patchValue(this.item);
         if (this.mode == 'view') this.form.disable();

@@ -16,6 +16,12 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { UsersDetailComponent } from './users-detail/users-detail.component';
+import { PasswordModule } from 'primeng/password';
+import { ImageModule } from 'primeng/image';
+import { ProgressBarModule } from 'primeng/progressbar';
+// For dynamic progressbar demo
+import { ToastModule } from 'primeng/toast';
+
 @NgModule({
     imports: [
         CommonModule,
@@ -34,6 +40,10 @@ import { UsersDetailComponent } from './users-detail/users-detail.component';
         InputNumberModule,
         DialogModule,
         DropdownModule,
+        PasswordModule,
+        ImageModule,
+        ProgressBarModule,
+        ToastModule
     ],
     declarations: [UserComponent, UsersDetailComponent],
 })

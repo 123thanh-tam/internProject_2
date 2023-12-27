@@ -5,6 +5,7 @@ export interface CreateDestinationDto {
     Name: string;
     Description: string;
     Rating: number;
+    TravelGuideIdss: string[];
 }
 export interface UpdateDestinationDto {
     Id: string;
@@ -13,6 +14,7 @@ export interface UpdateDestinationDto {
     Description: string;
     Rating: number;
     Images: string;
+    TravelGuideIdss: string[];
 }
 
 export class DestinationDto {
@@ -22,6 +24,7 @@ export class DestinationDto {
         description: string,
         rating: number,
         images: string,
+        travelGuideIdss: string[],
         id: string = ''
     ) {
         this.Code = code;
@@ -29,6 +32,7 @@ export class DestinationDto {
         this.Description = description;
         this.Rating = rating;
         if (id) this.Id = id ? id : null;
+        this.TravelGuideIdss = travelGuideIdss && travelGuideIdss.length > 0 ? travelGuideIdss : [];
         if (images) {
             this.Images = JSON.parse(images) as ImageDto[];
         }
@@ -39,4 +43,5 @@ export class DestinationDto {
     Description: string;
     Images: ImageDto[];
     Rating: number;
+    TravelGuideIdss: string[];
 }

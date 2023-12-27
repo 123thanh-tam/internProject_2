@@ -30,7 +30,7 @@ export class ToursDetailComponent implements OnInit {
     validationMessages = {
         Code: [
             { type: 'required', message: MessageConstants.REQUIRED_ERROR_MSG },
-            { type: 'maxlength', message: `Tên không quá 50 ký tự` },
+            { type: 'maxlength', message: `Name không quá 50 ký tự` },
         ],
         NameCustomer: [
             { type: 'required', message: MessageConstants.REQUIRED_ERROR_MSG },

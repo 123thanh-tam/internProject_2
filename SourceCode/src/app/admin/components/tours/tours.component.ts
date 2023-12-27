@@ -7,7 +7,7 @@ import { DestinationService } from 'src/app/_shared/services';
 import { PackagesService } from 'src/app/_shared/services';
 import { UsersService } from 'src/app/_shared/services/users.service';
 import { ConfirmationService } from 'primeng/api';
-import { MessageConstants } from 'src/app/_shared/consts';
+import { MessageConstants, eUserKind } from 'src/app/_shared/consts';
 import { ToursDto } from 'src/app/_shared/models/tours';
 import { ToursService } from 'src/app/_shared/services/tours.service';
 @Component({
@@ -136,7 +136,7 @@ export class ToursComponent implements OnInit {
     findDestination(id: string) {
         return this.destinations.find((x) => x.Id == id);
     }
-    findGuide(kind = 'guide') {
+    findGuide(kind: eUserKind) {
         return this.users.find((x) => x.Kind == kind);
     }
     findPrice(id: string) {

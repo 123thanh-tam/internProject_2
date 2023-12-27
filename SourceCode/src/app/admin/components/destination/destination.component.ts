@@ -84,6 +84,7 @@ export class DestinationComponent implements OnInit {
                 Name: des.Name,
                 Description: des.Description,
                 Rating: des.Rating,
+                TravelGuideIdss: des.TravelGuideIdss,
                 Images: JSON.stringify(des.Images)
             } as UpdateDestinationDto;
             this.destinationService.update(des.Id, updateDto).then((res) => {

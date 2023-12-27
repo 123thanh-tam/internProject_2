@@ -17,6 +17,8 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { ToursDetailComponent } from './tours-detail/tours-detail.component';
+import { ProgressBarModule } from 'primeng/progressbar';
+import { ImageModule } from 'primeng/image';
 @NgModule({
     imports: [
         CommonModule,
@@ -36,7 +38,9 @@ import { ToursDetailComponent } from './tours-detail/tours-detail.component';
         InputNumberModule,
         DialogModule,
         DropdownModule,
+        ProgressBarModule,
+        ImageModule
     ],
     declarations: [ToursComponent, ToursDetailComponent],
 })
-export class ToursModule {}
+export class ToursModule { }

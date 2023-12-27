@@ -31,6 +31,7 @@ export class DestinationService {
                     x['Description'],
                     x['Rating'],
                     x['Images'],
+                    x['TravelGuideIdss'],
                     id
                 );
             })
@@ -47,6 +48,7 @@ export class DestinationService {
                         x['Description'],
                         x['Rating'],
                         x['Images'],
+                        x['TravelGuideIdss'],
                         x['Id']
                     );
                 });
@@ -60,14 +62,7 @@ export class DestinationService {
     update(id: string, destination: UpdateDestinationDto) {
         debugger
         let docRef = doc(this.fs, 'Destinations/' + id);
-        return updateDoc(docRef, {
-            Code: destination.Code,
-            Name: destination.Name,
-            Description: destination.Description,
-            Rating: destination.Rating,
-            Id: destination.Id,
-            Images: destination.Images,
-        });
+        return updateDoc(docRef, { ...destination });
     }
     delete(des: DestinationDto) {
         let pros = [];
@@ -105,6 +100,7 @@ export class DestinationService {
                             Id: des.Id,
                             Code: des.Code,
                             Name: des.Name,
+                            TravelGuideIdss: des.TravelGuideIdss,
                             Description: des.Description,
                             Rating: des.Rating,
                             Images: JSON.stringify(des.Images)

@@ -1,133 +1,226 @@
 <form [formGroup]="form">
-  <p-panel #pnlDetail [collapsed]="false" [showHeader]="false">
-      <div class="formgrid grid card">
-          <!-- -----------------------------------Code----------------------------------------------- -->
-          <div class="field col-12 md:col-6">
-              <span class="p-float-label">
-                  <input
-                      autofocus
-                      formControlName="Id"
-                      type="text"
-                      pInputText
-                      [style]="{ width: '100%' }"
-                  />
-                  <label for="tenTaiLieu"
-                      >Code <span class="required">*</span></label
-                  >
-              </span>
-              <app-validation-message
-                  [entityControl]="formControls['Id']"
-                  [validationMessages]="validationMessages.Id"
-              >
-              </app-validation-message>
-          </div>
-          <!-- -----------------------------------Name----------------------------------------------- -->
-          <div class="field col-12 md:col-6">
-              <span class="p-float-label">
-                  <input
-                      formControlName="Name"
-                      type="text"
-                      pInputText
-                      [style]="{ width: '100%' }"
-                  />
-                  <label for="tenTaiLieu"
-                      >Name <span class="required">*</span></label
-                  >
-              </span>
-              <app-validation-message
-                  [entityControl]="formControls['Name']"
-                  [validationMessages]="validationMessages.Name"
-              >
-              </app-validation-message>
-          </div>
-          <!-- ----------------------------Kind---------------------------=----------------------------- -->
-          <div class="field col-12 md:col-6">
-              <span class="p-float-label">
-                  <p-dropdown
-                      formControlName="Kind"
-                      [options]="usersOptions"
-                      optionLabel="text"
-                      optionValue="value"
-                      [showClear]="true"
-                      [autoDisplayFirst]="false"
-                      [filter]="true"
-                      filterBy="text"
-                      styleClass="w-full"
-                  ></p-dropdown>
-                  <label>Type of user <span class="required">*</span></label>
-              </span>
-              <app-validation-message
-                  [entityControl]="formControls['Kind']"
-                  [validationMessages]="validationMessages.Kind"
-              >
-              </app-validation-message>
-          </div>
-       <!-- Email -->
-       <div class="field col-12 md:col-6">
-        <span class="p-float-label">
-            <input
-                autofocus
-                formControlName="Email"
-                type="text"
-                pInputText
-                [style]="{ width: '100%' }"
-            />
-            <label for="tenTaiLieu"
-                >Email <span class="required">*</span></label
+    <p-panel #pnlDetail [collapsed]="false" [showHeader]="false">
+        <div class="grid">
+            <div
+                *ngIf="mode != 'create'"
+                class="col-12 md:col-4 flex flex-column justify-content-cente"
             >
-        </span>
-        <app-validation-message
-            [entityControl]="formControls['Email']"
-            [validationMessages]="validationMessages.Email"
-        >
-        </app-validation-message>
-    </div>
-    <!-- Phone -->
-    <div class="field col-12 md:col-6">
-      <span class="p-float-label">
-          <input
-              autofocus
-              formControlName="Phone"
-              type="text"
-              pInputText
-              [style]="{ width: '100%' }"
-          />
-          <label for="tenTaiLieu"
-              >Phone number <span class="required">*</span></label
-          >
-      </span>
-      <app-validation-message
-          [entityControl]="formControls['Phone']"
-          [validationMessages]="validationMessages.Phone"
-      >
-      </app-validation-message>
-  </div>
-          <!-- ---------------------------------------------------------------------------------- -->
-      </div>
-      <!-- ---------------------------------------------------------------------------------- -->
-      <ng-template pTemplate="footer">
-          <div class="flex justify-content-end">
-              <button
-                  *ngIf="mode != 'view'"
-                  pButton
-                  pRipples
-                  type="button"
-                  (click)="saveChange()"
-                  label="Lưu"
-                  class="p-button-info mr-2"
-                  icon="pi pi-check"
-              ></button>
-              <button
-                  pButton
-                  pRipples
-                  type="button"
-                  (click)="closeModal()"
-                  label="Đóng"
-                  class="p-button-danger"
-                  icon="pi pi-times"
-              ></button>
-          </div>
-      </ng-template>
-  </p-panel>
-</form>
+                <div class="flex justify-content-center w-full mb-2">
+                    <p-image
+                        *ngIf="item.Avatar"
+                        [src]="item.Avatar.Url"
+                        [alt]="item.Avatar?.Name"
+                        width="300"
+                        [preview]="true"
+                    ></p-image>
+                </div>
+                <div
+                    *ngIf="mode == 'update'"
+                    class="flex justify-content-center w-full mb-2"
+                >
+                    <label>
+                        <input
+                            type="file"
+                            class="text-nowrap text-truncate"
+                            (change)="selectFile($event)"
+                        />
+                    </label>
+                    <button
+                        type="button"
+                        pButton
+                        pRipple
+                        label="Upload"
+                        icon="pi pi-upload"
+                        class="p-button-info ml-2"
+                        pTooltip="Upload"
+                        tooltipPosition="top"
+                        [disabled]="!selectedFiles"
+                        (click)="upload()"
+                    ></button>
+                </div>
+                <div *ngIf="percentage > 0 && percentage < 100" class="col-12">
+                    <p-progressBar [value]="percentage"></p-progressBar>
+                </div>
+            </div>
+            <div
+                class="grid"
+                [ngClass]="mode == 'create' ? 'col-12' : 'col-12 md:col-8'"
+            >
+                <div class="formgrid grid card">
+                    <!-- -----------------------------------UserName----------------------------------------------- -->
+                    <div class="field col-12 md:col-6">
+                        <span class="p-float-label">
+                            <input
+                                autofocus
+                                [readOnly]="mode != 'create'"
+                                formControlName="UserName"
+                                type="text"
+                                pInputText
+                                [style]="{ width: '100%' }"
+                            />
+                            <label for="UserName"
+                                >User Name
+                                <span class="required">*</span></label
+                            >
+                        </span>
+                        <app-validation-message
+                            [entityControl]="formControls['UserName']"
+                            [validationMessages]="validationMessages.UserName"
+                        >
+                        </app-validation-message>
+                    </div>
+                    <!-- -----------------------------------Name----------------------------------------------- -->
+                    <div class="field col-12 md:col-6">
+                        <span class="p-float-label">
+                            <input
+                                formControlName="Name"
+                                type="text"
+                                pInputText
+                                [style]="{ width: '100%' }"
+                            />
+                            <label for="Name"
+                                >Name <span class="required">*</span></label
+                            >
+                        </span>
+                        <app-validation-message
+                            [entityControl]="formControls['Name']"
+                            [validationMessages]="validationMessages.Name"
+                        >
+                        </app-validation-message>
+                    </div>
+                    <!-- ---------------------------------------------------------------------------------- -->
+                    <div class="field col-12 md:col-6">
+                        <span class="p-float-label">
+                            <p-password
+                                formControlName="Password"
+                                [toggleMask]="true"
+                                [style]="{ width: '100%' }"
+                            ></p-password>
+                            <label for="Password"
+                                >Password <span class="required">*</span></label
+                            >
+                        </span>
+                        <app-validation-message
+                            [entityControl]="formControls['Password']"
+                            [validationMessages]="validationMessages.Password"
+                        >
+                        </app-validation-message>
+                    </div>
+                    <!-- ---------------------------------------------------------------------------------- -->
+                    <div class="field col-12 md:col-6">
+                        <span class="p-float-label">
+                            <p-password
+                                formControlName="ConfirmPassword"
+                                [toggleMask]="true"
+                                [style]="{ width: '100%' }"
+                            ></p-password>
+                            <label for="ConfirmPassword"
+                                >Confirm Password
+                                <span class="required">*</span></label
+                            >
+                        </span>
+                        <app-validation-message
+                            [entityControl]="formControls['ConfirmPassword']"
+                            [validationMessages]="
+                                validationMessages.ConfirmPassword
+                            "
+                        >
+                        </app-validation-message>
+                    </div>
+                    <!-- ----------------------------Kind---------------------------=----------------------------- -->
+                    <div class="field col-12 md:col-6">
+                        <span class="p-float-label">
+                            <p-dropdown
+                                formControlName="Kind"
+                                [options]="UserKindOptionss"
+                                optionLabel="text"
+                                optionValue="value"
+                                [showClear]="true"
+                                [autoDisplayFirst]="false"
+                                [filter]="true"
+                                filterBy="text"
+                                styleClass="w-full"
+                            ></p-dropdown>
+                            <label
+                                >Type of user
+                                <span class="required">*</span></label
+                            >
+                        </span>
+                        <app-validation-message
+                            [entityControl]="formControls['Kind']"
+                            [validationMessages]="validationMessages.Kind"
+                        >
+                        </app-validation-message>
+                    </div>
+                    <!-- Email -->
+                    <div class="field col-12 md:col-6">
+                        <span class="p-float-label">
+                            <input
+                                autofocus
+                                formControlName="Email"
+                                type="text"
+                                pInputText
+                                [style]="{ width: '100%' }"
+                            />
+                            <label for="Email"
+                                >Email <span class="required">*</span></label
+                            >
+                        </span>
+                        <app-validation-message
+                            [entityControl]="formControls['Email']"
+                            [validationMessages]="validationMessages.Email"
+                        >
+                        </app-validation-message>
+                    </div>
+                    <!-- Phone -->
+                    <div class="field col-12 md:col-6">
+                        <span class="p-float-label">
+                            <input
+                                autofocus
+                                formControlName="Phone"
+                                type="text"
+                                pInputText
+                                [style]="{ width: '100%' }"
+                            />
+                            <label for="Phone"
+                                >Phone number
+                                <span class="required">*</span></label
+                            >
+                        </span>
+                        <app-validation-message
+                            [entityControl]="formControls['Phone']"
+                            [validationMessages]="validationMessages.Phone"
+                        >
+                        </app-validation-message>
+                    </div>
+                    <!-- ---------------------------------------------------------------------------------- -->
+                </div>
+            </div>
+        </div>
 
+        <!-- ---------------------------------------------------------------------------------- -->
+        <ng-template pTemplate="footer">
+            <div class="flex justify-content-end">
+                <button
+                    *ngIf="mode != 'view'"
+                    pButton
+                    pRipples
+                    type="button"
+                    (click)="saveChange()"
+                    label="Lưu"
+                    class="p-button-info mr-2"
+                    icon="pi pi-check"
+                ></button>
+                <button
+                    pButton
+                    pRipples
+                    type="button"
+                    (click)="closeModal()"
+                    label="Đóng"
+                    class="p-button-danger"
+                    icon="pi pi-times"
+                ></button>
+            </div>
+        </ng-template>
+    </p-panel>
+</form>

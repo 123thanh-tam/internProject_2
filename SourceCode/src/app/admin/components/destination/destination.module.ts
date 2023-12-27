@@ -20,6 +20,7 @@ import { AngularFireStorageModule } from "@angular/fire/compat/storage";
 import { DetinationImageComponent } from './detination-image/detination-image.component';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { ImageModule } from 'primeng/image';
+import { MultiSelectModule } from 'primeng/multiselect';
 
 @NgModule({
   imports: [
@@ -38,9 +39,10 @@ import { ImageModule } from 'primeng/image';
     FileUploadModule,
     InputTextareaModule,
     InputNumberModule,
-    DialogModule,
+  DialogModule,
     ProgressBarModule,
-    ImageModule
+    ImageModule,
+    MultiSelectModule
   ],
   declarations: [
     DestinationComponent,

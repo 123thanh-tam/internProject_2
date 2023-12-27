@@ -18,6 +18,8 @@ import { PackagesRoutes } from './packages.routing';
 import { PackagesDetailComponent } from './packages-detail/packages-detail.component';
 import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
+import { MultiSelectModule } from 'primeng/multiselect';
+
 @NgModule({
     imports: [
         PackagesRoutes,
@@ -37,7 +39,8 @@ import { DropdownModule } from 'primeng/dropdown';
         InputNumberModule,
         DialogModule,
         CalendarModule,
-        DropdownModule
+        DropdownModule,
+        MultiSelectModule
     ],
     declarations: [PackagesComponent, PackagesDetailComponent],
 })
